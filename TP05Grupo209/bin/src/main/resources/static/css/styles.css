@@ -1,0 +1,35 @@
+body {
+    background-image: url('/images/fondo.jpg'); /* Ruta de tu imagen de fondo */
+    background-size: cover; /* Para que la imagen cubra toda la página */
+    background-repeat: no-repeat; /* Para evitar que la imagen se repita */
+    background-attachment: fixed; /* Para que la imagen de fondo no se mueva con el scroll */
+    background-position: center; /* Para centrar la imagen de fondo */
+}
+
+.container-fluid {
+    padding: 0; /* Eliminar el relleno del contenedor */
+}
+
+.navbar-hover {
+    color: white; /* Color de texto blanco */
+}
+
+.navbar-hover:hover {
+    color: aqua; /* Color de texto al pasar el mouse */
+}
+
+.university-motto {
+            font-family: 'Garamond', 'Georgia', serif;
+            font-size: 1.5em;
+            font-weight: bold;
+            text-align: center;
+            margin-top: 20px;
+            color: #333;
+}
+.no-underline {
+    text-decoration: none; /* Quitar la línea subrayada */
+    color: inherit; /* Mantener el color del enlace */
+}
+.label-lg {
+    font-size: 1.25rem; /* Tamaño de fuente más grande para los labels */
+}

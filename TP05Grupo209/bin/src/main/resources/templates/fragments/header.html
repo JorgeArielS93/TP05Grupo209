@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="/images/favicon.png" rel="shortcut icon" type="image/vnd.microsoft.icon">
+<title>Document</title>
+</head>
+<body>
+	<header class="text-bg-light text-center p-4" th:fragment="header">
+		<img th:src="@{/images/logo.png}" alt="Logotipo de la Facultad" class="mb-2 img-fluid">
+		<h1>Facultad de Ingeniería</h1>
+		<p class="university-motto">“Flammam Tvam Hoc Foco Accende lat”</p>
+		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+			<div class="container">
+				<img th:src="@{/images/logo_fi.png}" alt="Logotipo de la Facultad" width="40" height="40">
+				<!-- <a class="navbar-brand" href="/principal/inicio">Facultad</a> --> 
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarNav">
+					<ul class="navbar-nav ms-auto">
+						<li class="nav-item active"><a class="nav-link navbar-hover" href="/principal/home">Inicio</a></li>
+						<li class="nav-item"><a class="nav-link navbar-hover" href="#">Acerca de</a></li>
+						<li class="nav-item"><a class="nav-link navbar-hover" href="#">Carreras</a></li>
+						<li class="nav-item"><a class="nav-link navbar-hover" href="#">Noticias</a></li>
+						<li class="nav-item"><a class="nav-link navbar-hover" href="#">Contacto</a></li>
+						<li class="nav-item dropdown"><a class="nav-link dropdown-toggle navbar-hover" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Gestion</a>
+							<ul class="dropdown-menu">
+								<li><a class="dropdown-item" href="/docente/listaDocentes">Docentes</a></li>
+								<li><a class="dropdown-item" href="/alumno/listaAlumnos">Alumnos</a></li>
+								<li><a class="dropdown-item" href="/materia/listaMaterias">Materia</a></li>
+								<li><a class="dropdown-item" href="/carrera/listaCarreras">Carrera</a></li>
+								
+							</ul>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+	</header>
+</body>
+</html>

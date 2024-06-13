@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title th:text="${pageTitle}">Formulario Carreras</title>
+<link rel="stylesheet"
+	th:href="@{/webjars/bootstrap/5.3.3/css/bootstrap.min.css}">
+<link rel="stylesheet" href="/css/estilos.css">
+</head>
+<body>
+	<!-- Extiende la plantilla base -->
+	<div th:replace="fragments/header :: header"></div>
+	<!-- Contenido específico de la página -->
+	<div class="container d-flex justify-content-center">
+		<div class="w-50">
+			<h1 class="h3 mb-3">FORMULARIO CARRERA</h1>
+			<form th:object="${nuevaCarrera}" th:action="@{/guardarCarrera}"
+				method="post">
+				<div class="mb-3">
+					<label for="codigo" class="form-label">Codigo</label> <input
+						type="text" class="form-control form-control-sm" id="codigo"
+						th:field="*{codigo}">
+				</div>
+				<div class="mb-3">
+					<label for="nombre" class="form-label">Nombre Carrera</label> <input
+						type="text" class="form-control form-control-sm" id="nombre"
+						th:field="*{nombre}">
+				</div>
+				<div class="mb-3">
+					<label for="cantidad" class="form-label">Cantidad Años</label> <input
+						type="number" class="form-control form-control-sm" id="cantidad"
+						th:field="*{cantidadAnios}">
+				</div>
+				<button type="submit" class="btn btn-primary btn-sm">Guardar
+					Carrera</button>
+			</form>
+		</div>
+	</div>
+
+	<script th:src="@{/webjars/bootstrap/5.3.3/js/bootstrap.bundle.min.js}"></script>
+	<div th:replace="fragments/footer :: footer"></div>
+</body>
+</html>

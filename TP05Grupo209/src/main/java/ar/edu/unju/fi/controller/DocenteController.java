@@ -15,49 +15,48 @@ import ar.edu.unju.fi.service.IDocenteService;
 @Controller
 @RequestMapping("/docente")
 public class DocenteController {
-	@Autowired
-	Docente docente;
-	@Autowired
-	IDocenteService docenteService;
-	
-	@GetMapping("formularioDocente")
-	public ModelAndView getDormulario() {
-		ModelAndView mv= new ModelAndView("formDocente");
-		mv.addObject("maestro",docente);
-		mv.addObject("isEdit", false);
+    @Autowired
+    Docente docente;
+
+    @Autowired
+    IDocenteService docenteService;
+
+    @GetMapping("formularioDocente")
+    public ModelAndView getFormulario() {
+        ModelAndView mv = new ModelAndView("formDocente");
+        mv.addObject("maestro", docente);
+        mv.addObject("isEdit", false);
         return mv;
-	}
-	
-	@GetMapping("listaDocentes")
-	public ModelAndView getListaDocentes() {
-		ModelAndView mv= new ModelAndView("listaDocentes");
-		mv.addObject("docentes",docenteService.getListaDocentes());
-		return mv;
-	}
-	
-	@PostMapping("guardarDocente")
-	public ModelAndView guardarDocente(@ModelAttribute("maestro") Docente docente) {
-		if (docente.getLegajo() != null && !docente.getLegajo().isEmpty()) {
-			docenteService.agregarUnDocente(docente);
-		}else {
-			docenteService.agregarUnDocente(docente);
-		}
-		ModelAndView mv = new ModelAndView("redirect:listaDocentes");
-		return mv;
-	}
-	
-	 @GetMapping("/modificar/{legajo}")
-	    public ModelAndView modificarDocente(@PathVariable("legajo") String legajo) {
-	    	ModelAndView mv = new ModelAndView("formDocente");
-	    	mv.addObject("maestro",docenteService.findDocenteByLegajo(legajo));
-	    	mv.addObject("isEdit", true);
-	    	return mv;
-	    }
-	    
-	    @GetMapping("/borrarDocente/{legajo}")
-	    public ModelAndView deleteDocente(@PathVariable("legajo") String legajo) {
-	    	docenteService.eliminarUnDocente(legajo);
-	    	ModelAndView mv= new ModelAndView("redirect:/docente/listaDocentes");
-	    	return mv;
-	    }
+    }
+
+    @GetMapping("listaDocentes")
+    public ModelAndView getListaDocentes() {
+        ModelAndView mv = new ModelAndView("listaDocentes");
+        mv.addObject("docentes", docenteService.getListaDocentes());
+        return mv;
+    }
+
+    @PostMapping("guardarDocente")
+    public ModelAndView guardarDocente(@ModelAttribute("maestro") Docente docente) {
+        if (docente.getLegajo() != null && !docente.getLegajo().isEmpty()) {
+            docenteService.actualizarDocente(docente);
+        } else {
+            docenteService.agregarUnDocente(docente);
+        }
+        return new ModelAndView("redirect:listaDocentes");
+    }
+
+    @GetMapping("/modificar/{legajo}")
+    public ModelAndView modificarDocente(@PathVariable("legajo") String legajo) {
+        ModelAndView mv = new ModelAndView("formDocente");
+        mv.addObject("maestro", docenteService.findDocenteByLegajo(legajo));
+        mv.addObject("isEdit", true);
+        return mv;
+    }
+
+    @GetMapping("/borrarDocente/{legajo}")
+    public ModelAndView deleteDocente(@PathVariable("legajo") String legajo) {
+        docenteService.eliminarUnDocente(legajo);
+        return new ModelAndView("redirect:/docente/listaDocentes");
+    }
 }

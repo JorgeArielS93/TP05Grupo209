@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Docente</title>
+    <link rel="stylesheet" data-th-href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+    <link href="/images/favicon.png" rel="shortcut icon" type="image/vnd.microsoft.icon">
+    <!-- Carga de la hoja de estilos personalizada -->
+    <link rel="stylesheet" type="text/css" data-th-href="@{/css/styles.css}">
+</head>
+<body>
+<div class="container">
+	<div class="row"><header data-th-replace="~{fragments/header::header}"></header> </div>
+	<div class="row mt-5">
+			<h2 th:text="${isEdit} ? 'Modificar Docente' : 'Formulario de Docente'"></h2>
+			<form class="row g-3" data-th-action="@{/docente/guardarDocente}" data-th-object="${maestro}" method="post" >
+				<div class="form-floating col-md-3">
+					<input type="text" class="form-control" id="nombre" name="nombre" data-th-field="*{nombre}" placeholder="name@example" required>
+					<label for="nombre" class="form-label">Nombre</label>
+				</div>
+				<div class="form-floating col-md-3">
+					<input type="text" class="form-control" id="apellido" name="apellido" data-th-field="*{apellido}" placeholder="name@example" required>
+					<label for="apellido" class="form-label">Apellido</label>
+				</div>
+				<div class="form-floating col-md-3">
+					<input type="email" class="form-control" id="email" name="email" data-th-field="*{email}" placeholder="name@example" required>
+					<label for="email" class="form-label">Email</label>
+				</div>
+				<div class="form-floating col-md-3">
+					<input type="tel" class="form-control" id="telefono" name="telefono" data-th-field="*{telefono}" placeholder="name@example" required>
+					<label for="telefono" class="form-label">Teléfono</label>
+				</div>
+				<div>
+					<input type="hidden" class="form-control" id="legajo" name="legajo"data-th-field="*{legajo}" >
+				</div>
+				<div class="col-12 d-flex justify-content-center gap-2">
+					<input type="submit" class="btn btn-lg btn-success" th:value="${isEdit} ? 'Modificar' : 'Agregar'">
+					<a class="btn btn-lg btn-secondary" href="/docente/listaDocentes">Regresar</a>
+				</div>
+			</form>
+		</div>
+	
+	<div class="row"><footer data-th-replace="~{fragments/footer::footer}"></footer></div>
+</div>
+<script data-th-src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>

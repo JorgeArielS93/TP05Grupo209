@@ -1,12 +1,11 @@
 package ar.edu.unju.fi.model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
-
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
 
 @Component
 @Data
@@ -14,8 +13,8 @@ import jakarta.persistence.Id;
 @AllArgsConstructor
 @Entity
 public class Carrera {
-	
-@Id
+
+	@Id
 	private String id;
 	private String codigo;
 	private String nombre;

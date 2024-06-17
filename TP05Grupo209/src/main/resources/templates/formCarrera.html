@@ -9,14 +9,14 @@
 <link rel="stylesheet" href="/css/estilos.css">
 </head>
 <body>
-	<!-- Extiende la plantilla base -->
 	<div th:replace="fragments/header :: header"></div>
-	<!-- Contenido específico de la página -->
 	<div class="container d-flex justify-content-center">
 		<div class="w-50">
 			<h1 class="h3 mb-3">FORMULARIO CARRERA</h1>
-			<form th:object="${nuevaCarrera}" th:action="@{/guardarCarrera}"
+			<form th:object="${nuevaCarrera}"
+				th:action="@{${nuevaCarrera.id == null} ? '/carrera/guardarCarrera' : '/carrera/modificarCarrera'}"
 				method="post">
+				<input type="hidden" th:field="*{id}" />
 				<div class="mb-3">
 					<label for="codigo" class="form-label">Codigo</label> <input
 						type="text" class="form-control form-control-sm" id="codigo"
@@ -32,6 +32,7 @@
 						type="number" class="form-control form-control-sm" id="cantidad"
 						th:field="*{cantidadAnios}">
 				</div>
+				<input type="hidden" th:field="*{estado}" value="true" />
 				<button type="submit" class="btn btn-primary btn-sm">Guardar
 					Carrera</button>
 			</form>

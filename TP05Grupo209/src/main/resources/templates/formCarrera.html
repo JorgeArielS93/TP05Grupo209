@@ -4,42 +4,48 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title th:text="${pageTitle}">Formulario Carreras</title>
-<link rel="stylesheet"
-	th:href="@{/webjars/bootstrap/5.3.3/css/bootstrap.min.css}">
-<link rel="stylesheet" href="/css/estilos.css">
+<link rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.3/css/bootstrap.min.css}">
+<link rel="stylesheet" th:href="@{/css/styles.css}">
 </head>
 <body>
-	<div th:replace="fragments/header :: header"></div>
-	<div class="container d-flex justify-content-center">
-		<div class="w-50">
-			<h1 class="h3 mb-3">FORMULARIO CARRERA</h1>
-			<form th:object="${nuevaCarrera}"
-				th:action="@{${nuevaCarrera.id == null} ? '/carrera/guardarCarrera' : '/carrera/modificarCarrera'}"
-				method="post">
-				<input type="hidden" th:field="*{id}" />
-				<div class="mb-3">
-					<label for="codigo" class="form-label">Codigo</label> <input
-						type="text" class="form-control form-control-sm" id="codigo"
-						th:field="*{codigo}">
-				</div>
-				<div class="mb-3">
-					<label for="nombre" class="form-label">Nombre Carrera</label> <input
-						type="text" class="form-control form-control-sm" id="nombre"
-						th:field="*{nombre}">
-				</div>
-				<div class="mb-3">
-					<label for="cantidad" class="form-label">Cantidad Años</label> <input
-						type="number" class="form-control form-control-sm" id="cantidad"
-						th:field="*{cantidadAnios}">
-				</div>
-				<input type="hidden" th:field="*{estado}" value="true" />
-				<button type="submit" class="btn btn-primary btn-sm">Guardar
-					Carrera</button>
-			</form>
-		</div>
-	</div>
+    <div th:replace="fragments/header :: header"></div>
+    <div class="container my-5">
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <div class="card shadow" style="background-color: rgba(255, 255, 255, 0.8);">
+                    <div class="card-header">
+                        <h3 class="card-title mb-0">Formulario Carrera</h3>
+                    </div>
+                    <div class="card-body">
+                        <form th:object="${nuevaCarrera}"
+                              th:action="@{${nuevaCarrera.id == null} ? '/carrera/guardarCarrera' : '/carrera/modificarCarrera'}"
+                              method="post">
+                            <input type="hidden" th:field="*{id}" />
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="codigo" th:field="*{codigo}" placeholder="Código">
+                                <label for="codigo">Código</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="nombre" th:field="*{nombre}" placeholder="Nombre Carrera">
+                                <label for="nombre">Nombre Carrera</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input type="number" class="form-control" id="cantidad" th:field="*{cantidadAnios}" placeholder="Cantidad Años">
+                                <label for="cantidad">Cantidad Años</label>
+                            </div>
+                            <input type="hidden" th:field="*{estado}" value="true" />
+                            <div class="d-flex justify-content-between">
+                                <a class="btn btn-secondary" href="/carrera/listaCarreras">Regresar</a>
+                                <button type="submit" class="btn btn-primary">Guardar Carrera</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-	<script th:src="@{/webjars/bootstrap/5.3.3/js/bootstrap.bundle.min.js}"></script>
-	<div th:replace="fragments/footer :: footer"></div>
+    <script th:src="@{/webjars/bootstrap/5.3.3/js/bootstrap.bundle.min.js}"></script>
+    <div th:replace="fragments/footer :: footer"></div>
 </body>
 </html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.3/css/bootstrap.min.css}">
+<link rel="stylesheet" th:href="@{/css/styles.css}">
+<title>Listado Carreras</title>
+</head>
+<body>
+    <div th:replace="fragments/header :: header"></div>
+    <div class="container my-5">
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-10 col-lg-8">
+                <div class="card shadow" style="background-color: rgba(255, 255, 255, 0.8);">
+                    <div class="card-body">
+                        <h1 class="text-center mb-4">Listado de Carreras</h1>
+                        <div class="table-responsive">
+                            <table class="table table-hover shadow-sm">
+                                <thead class="table-dark">
+                                    <tr>
+                                        <th scope="col">Código</th>
+                                        <th scope="col">Nombre</th>
+                                        <th scope="col">Cantidad</th>
+                                        <th scope="col">Estado</th>
+                                        <th scope="col" style="text-align: right; padding-right: 50px">Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="carrera : ${listadoCarreras}">
+                                        <td th:text="${carrera.codigo}"></td>
+                                        <td th:text="${carrera.nombre}"></td>
+                                        <td th:text="${carrera.cantidadAnios}"></td>
+                                        <td th:text="${carrera.estado}"></td>
+                                        <td>
+                                            <div class="d-flex justify-content-end">
+                                                <a th:href="@{'/carrera/borrarCarrera/' + ${carrera.id}}"
+                                                   class="btn btn-danger btn-sm me-2">Borrar</a>
+                                                <a th:href="@{'/carrera/editarCarrera/' + ${carrera.id}}"
+                                                   class="btn btn-warning btn-sm">Modificar</a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="d-flex justify-content-center mt-4">
+                            <a th:href="@{/carrera/formularioCarrera}" class="btn btn-success">Agregar Nueva Carrera</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script th:src="@{/webjars/bootstrap/5.3.3/js/bootstrap.bundle.min.js}"></script>
+    <div th:replace="fragments/footer :: footer"></div>
+</body>
+</html>

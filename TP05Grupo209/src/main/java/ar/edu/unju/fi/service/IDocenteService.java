@@ -4,13 +4,13 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import ar.edu.unju.fi.model.Docente;
+import ar.edu.unju.fi.dto.DocenteDTO;
 
 @Service
 public interface IDocenteService {
-	public List<Docente> getListaDocentes();
-	public Docente findDocenteByLegajo(Long legajo);
-	public void agregarUnDocente(Docente docente);
-	public void actualizarDocente(Docente docente);
+	public List<DocenteDTO> getListaDocentes();
+	public DocenteDTO findDocenteByLegajo(Long legajo);
+	public void agregarUnDocente(DocenteDTO docenteDTO);
+	public void actualizarDocente(DocenteDTO docenteDTO);
 	public void eliminarUnDocente(Long legajo);
 }

@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import ar.edu.unju.fi.model.Docente;
+import ar.edu.unju.fi.dto.DocenteDTO;
 import ar.edu.unju.fi.service.IDocenteService;
 
 @Controller
@@ -17,7 +17,7 @@ import ar.edu.unju.fi.service.IDocenteService;
 public class DocenteController {
 
     @Autowired
-    Docente docente;
+    DocenteDTO docenteDTO;
 
     @Autowired
     IDocenteService docenteService;
@@ -25,7 +25,7 @@ public class DocenteController {
     @GetMapping("formularioDocente")
     public ModelAndView getFormulario() {
         ModelAndView mv = new ModelAndView("formDocente");
-        mv.addObject("maestro", docente);
+        mv.addObject("maestro", docenteDTO);
         mv.addObject("isEdit", false);
         return mv;
     }
@@ -38,13 +38,13 @@ public class DocenteController {
     }
 
     @PostMapping("guardarDocente")
-    public ModelAndView guardarDocente(@ModelAttribute("maestro") Docente docente) {
-        if (docente.getLegajo() != null) {
+    public ModelAndView guardarDocente(@ModelAttribute("maestro") DocenteDTO docenteDTO) {
+        if (docenteDTO.getLegajo() != null) {
             // Si legajo no es nulo, actualizamos el docente existente
-            docenteService.actualizarDocente(docente);
+            docenteService.actualizarDocente(docenteDTO);
         } else {
             // Si legajo es nulo, agregamos un nuevo docente
-            docenteService.agregarUnDocente(docente);
+            docenteService.agregarUnDocente(docenteDTO);
         }
         return new ModelAndView("redirect:listaDocentes");
     }

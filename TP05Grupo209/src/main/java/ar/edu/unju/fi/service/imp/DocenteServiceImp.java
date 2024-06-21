@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import ar.edu.unju.fi.dto.DocenteDTO;
+import ar.edu.unju.fi.mapper.DocenteMapDTO;
 import ar.edu.unju.fi.model.Docente;
 import ar.edu.unju.fi.repository.DocenteRepository;
 import ar.edu.unju.fi.service.IDocenteService;
@@ -13,34 +15,37 @@ public class DocenteServiceImp implements IDocenteService {
 
     @Autowired
     DocenteRepository docenteRepository;
+    @Autowired
+    DocenteMapDTO docenteMapDTO;
 
     @Override
-    public List<Docente> getListaDocentes() {
-        return docenteRepository.findByEstado(true);
+    public List<DocenteDTO> getListaDocentes() {
+        List<Docente> docentes = docenteRepository.findByEstado(true);
+        return docenteMapDTO.listDocenteToListDocenteDTO(docentes);
     }
 
     @Override
-    public Docente findDocenteByLegajo(Long legajo) {
-        return docenteRepository.findById(legajo).get();
+    public DocenteDTO findDocenteByLegajo(Long legajo) {
+        return docenteMapDTO.toDto(docenteRepository.findById(legajo).get());
     }
 
     @Override
-    public void agregarUnDocente(Docente docente) {
-        docente.setEstado(true);
-        docenteRepository.save(docente);
+    public void agregarUnDocente(DocenteDTO docenteDTO) {
+        docenteDTO.setEstado(true);
+        docenteRepository.save(docenteMapDTO.toEntity(docenteDTO));
     }
 
     @Override
-    public void actualizarDocente(Docente docente) {
-        docenteRepository.save(docente);
+    public void actualizarDocente(DocenteDTO docenteDTO) {
+        docenteRepository.save(docenteMapDTO.toEntity(docenteDTO));
     }
 
     @Override
     public void eliminarUnDocente(Long legajo) {
-        Docente docente = findDocenteByLegajo(legajo);
-        if (docente != null) {
-            docente.setEstado(false);
-            docenteRepository.save(docente);
+        DocenteDTO docenteDTO = findDocenteByLegajo(legajo);
+        if (docenteDTO != null) {
+            docenteDTO.setEstado(false);
+            docenteRepository.save(docenteMapDTO.toEntity(docenteDTO));
         } else {
             throw new RuntimeException("El docente con legajo " + legajo + " no existe.");
         }

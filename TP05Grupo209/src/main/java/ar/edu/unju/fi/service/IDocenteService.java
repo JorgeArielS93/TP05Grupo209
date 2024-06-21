@@ -9,8 +9,8 @@ import ar.edu.unju.fi.model.Docente;
 @Service
 public interface IDocenteService {
 	public List<Docente> getListaDocentes();
-	public Docente findDocenteByLegajo(String legajo);
+	public Docente findDocenteByLegajo(Long legajo);
 	public void agregarUnDocente(Docente docente);
 	public void actualizarDocente(Docente docente);
-	public void eliminarUnDocente(String legajo);
+	public void eliminarUnDocente(Long legajo);
 }

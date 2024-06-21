@@ -15,6 +15,7 @@ import ar.edu.unju.fi.service.IDocenteService;
 @Controller
 @RequestMapping("/docente")
 public class DocenteController {
+
     @Autowired
     Docente docente;
 
@@ -38,16 +39,18 @@ public class DocenteController {
 
     @PostMapping("guardarDocente")
     public ModelAndView guardarDocente(@ModelAttribute("maestro") Docente docente) {
-        if (docente.getLegajo() != null && !docente.getLegajo().isEmpty()) {
+        if (docente.getLegajo() != null) {
+            // Si legajo no es nulo, actualizamos el docente existente
             docenteService.actualizarDocente(docente);
         } else {
+            // Si legajo es nulo, agregamos un nuevo docente
             docenteService.agregarUnDocente(docente);
         }
         return new ModelAndView("redirect:listaDocentes");
     }
 
     @GetMapping("/modificar/{legajo}")
-    public ModelAndView modificarDocente(@PathVariable("legajo") String legajo) {
+    public ModelAndView modificarDocente(@PathVariable("legajo") Long legajo) {
         ModelAndView mv = new ModelAndView("formDocente");
         mv.addObject("maestro", docenteService.findDocenteByLegajo(legajo));
         mv.addObject("isEdit", true);
@@ -55,7 +58,7 @@ public class DocenteController {
     }
 
     @GetMapping("/borrarDocente/{legajo}")
-    public ModelAndView deleteDocente(@PathVariable("legajo") String legajo) {
+    public ModelAndView deleteDocente(@PathVariable("legajo") Long legajo) {
         docenteService.eliminarUnDocente(legajo);
         return new ModelAndView("redirect:/docente/listaDocentes");
     }

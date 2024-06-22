@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import ar.edu.unju.fi.model.Carrera;
+import ar.edu.unju.fi.dto.CarreraDTO;
 import ar.edu.unju.fi.service.ICarreraService;
 
 @Controller
@@ -19,7 +19,7 @@ import ar.edu.unju.fi.service.ICarreraService;
 public class CarreraController {
 
 	@Autowired
-	private Carrera nuevaCarrera;
+	private CarreraDTO nuevaCarrera;
 
 	@Autowired
 	private ICarreraService carreraService;
@@ -33,14 +33,14 @@ public class CarreraController {
 	}
 
 	@PostMapping("/guardarCarrera")
-	public String saveCarrera(@ModelAttribute("nuevaCarrera") Carrera carreraParaGuardar) {
+	public String saveCarrera(@ModelAttribute("nuevaCarrera") CarreraDTO carreraParaGuardar) {
 		carreraParaGuardar.setEstado(true); // Asume que una carrera nueva siempre está activa
 		carreraService.agregarUnaCarrera(carreraParaGuardar);
 		return "redirect:/carrera/listaCarreras";
 	}
 
 	@GetMapping("/borrarCarrera/{id}")
-	public String deleteCarrera(@PathVariable String id, RedirectAttributes redirectAttributes) {
+	public String deleteCarrera(@PathVariable Long id, RedirectAttributes redirectAttributes) {
 		carreraService.eliminarUnaCarrera(id);
 		redirectAttributes.addFlashAttribute("mensaje", "La carrera ha sido eliminada exitosamente.");
 		return "redirect:/carrera/listaCarreras";
@@ -48,15 +48,15 @@ public class CarreraController {
 
 	@GetMapping("/listaCarreras")
 	public ModelAndView listarCarreras() {
-		List<Carrera> carrerasActivas = carreraService.getListaCarreras();
+		List<CarreraDTO> carrerasActivas = carreraService.getListaCarreras();
 		ModelAndView modelView = new ModelAndView("listaDeCarreras");
 		modelView.addObject("listadoCarreras", carrerasActivas);
 		return modelView;
 	}
 
 	@GetMapping("/editarCarrera/{id}")
-	public ModelAndView getFormEditarCarrera(@PathVariable String id) {
-		Carrera carreraParaModificar = carreraService.findCarreraById(id);
+	public ModelAndView getFormEditarCarrera(@PathVariable Long id) {
+		CarreraDTO carreraParaModificar = carreraService.findCarreraById(id);
 		if (carreraParaModificar == null) {
 			return new ModelAndView("redirect:/carrera/listaCarreras");
 		}
@@ -67,10 +67,10 @@ public class CarreraController {
 	}
 
 	@PostMapping("/modificarCarrera")
-	public String saveCarreraModificada(@ModelAttribute("nuevaCarrera") Carrera carreraModificada,
+	public String saveCarreraModificada(@ModelAttribute("nuevaCarrera") CarreraDTO carreraModificada,
 			RedirectAttributes redirectAttributes) {
-		if (carreraModificada.getId() == null || carreraModificada.getId().isEmpty()) {
-			throw new RuntimeException("El ID de la carrera no puede ser nulo o vacío.");
+		if (carreraModificada.getId() == null) {
+			throw new RuntimeException("El ID de la carrera no puede ser nulo.");
 		}
 		carreraService.actualizarCarrera(carreraModificada);
 		redirectAttributes.addFlashAttribute("mensaje", "La carrera ha sido modificada exitosamente.");

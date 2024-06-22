@@ -9,14 +9,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import ar.edu.unju.fi.model.Alumno;
+import ar.edu.unju.fi.dto.AlumnoDTO;
 import ar.edu.unju.fi.service.IAlumnoService;
 
 @Controller
 @RequestMapping("/alumno")
 public class AlumnoController {
 	@Autowired
-	Alumno alumno;
+	AlumnoDTO alumnoDTO;
 	
 	@Autowired
 	IAlumnoService alumnoService;
@@ -24,7 +24,7 @@ public class AlumnoController {
 	@GetMapping("formularioAlumno")
     public ModelAndView getFormulario() {
         ModelAndView mv = new ModelAndView("formAlumno");
-        mv.addObject("alumno", alumno);
+        mv.addObject("alumno", alumnoDTO);
         mv.addObject("isEdit", false);
         return mv;
     }
@@ -37,17 +37,17 @@ public class AlumnoController {
     }
 	
 	@PostMapping("guardarAlumno")
-    public ModelAndView guardarAlumno(@ModelAttribute("alumno") Alumno alumno) {
-        if (alumno.getLu() != null && !alumno.getLu().isEmpty()) {
-            alumnoService.actualizarAlumno(alumno);
+    public ModelAndView guardarAlumno(@ModelAttribute("alumno") AlumnoDTO alumnoDTO) {
+		if (alumnoDTO.getLu() != null) {
+            alumnoService.actualizarAlumno(alumnoDTO);
         } else {
-            alumnoService.agregarUnAlumno(alumno);
+            alumnoService.agregarUnAlumno(alumnoDTO);
         }
         return new ModelAndView("redirect:listaAlumnos");
     }
 	
 	@GetMapping("/modificar/{lu}")
-    public ModelAndView modificarAlumno(@PathVariable("lu") String lu) {
+    public ModelAndView modificarAlumno(@PathVariable("lu") Long lu) {
         ModelAndView mv = new ModelAndView("formAlumno");
         mv.addObject("alumno", alumnoService.findAlumnoByLu(lu));
         mv.addObject("isEdit", true);
@@ -55,7 +55,7 @@ public class AlumnoController {
     }
 
     @GetMapping("/borrarAlumno/{lu}")
-    public ModelAndView deleteAlumno(@PathVariable("lu") String lu) {
+    public ModelAndView deleteAlumno(@PathVariable("lu") Long lu) {
         alumnoService.eliminarUnAlumno(lu);
         return new ModelAndView("redirect:/alumno/listaAlumnos");
     }

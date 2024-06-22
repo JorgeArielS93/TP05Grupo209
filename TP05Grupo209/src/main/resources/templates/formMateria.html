@@ -15,9 +15,7 @@
 	<div class="row mt-5">
 			<h2 th:text="${isEdit} ? 'Modificar Materia' : 'Formulario de Materia'"></h2>
 			<form class="row g-3" data-th-action="@{/materia/guardarMateria}" data-th-object="${materia}" method="post" >
-				<div>
-					<input type="hidden" class="form-control" id="codigo" name="codigo"data-th-field="*{codigo}" >
-				</div>
+				
 				<div class="form-floating col-md-3">
 					<input type="text" class="form-control" id="nombre" name="nombre" data-th-field="*{nombre}" placeholder="name@example" required>
 					<label for="nombre" class="form-label">Nombre</label>
@@ -39,6 +37,14 @@
 					</select>
 					<label for="modalidad" class="form-label">Modalidad</label>
 				</div>
+				
+				<div>
+					<input type="hidden" class="form-control" id="codigo" name="codigo"data-th-field="*{codigo}" >
+				</div>
+				
+				<div>
+                <input type="hidden" class="form-control" id="estado" name="estado" data-th-field="*{estado}">
+            	</div>
 				
 				<div class="col-12 d-flex justify-content-center gap-2">
 					<input type="submit" class="btn btn-lg btn-success" th:value="${isEdit} ? 'Modificar' : 'Agregar'">

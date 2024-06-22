@@ -9,14 +9,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import ar.edu.unju.fi.model.Materia;
+import ar.edu.unju.fi.dto.MateriaDTO;
 import ar.edu.unju.fi.service.IMateriaService;
 
 @Controller
 @RequestMapping("/materia")
 public class MateriaController {
 	 	@Autowired
-	    Materia materia;
+	    MateriaDTO materiaDTO;
 	 	
 	 	@Autowired
 		IMateriaService materiaService;
@@ -24,7 +24,7 @@ public class MateriaController {
 	    @GetMapping("formularioMateria")
 	    public ModelAndView getFormulario() {
 	        ModelAndView mv = new ModelAndView("formMateria");
-	        mv.addObject("materia", materia);
+	        mv.addObject("materia", materiaDTO);
 	        mv.addObject("isEdit", false);
 	        return mv;
 	    }
@@ -37,17 +37,17 @@ public class MateriaController {
 	    }
 
 	    @PostMapping("guardarMateria")
-	    public ModelAndView guardarMateria(@ModelAttribute("materia") Materia materia) {
-	        if (materia.getCodigo() != null && !materia.getCodigo().isEmpty()) {
-	            materiaService.actualizarMateria(materia);
+	    public ModelAndView guardarMateria(@ModelAttribute("materia") MateriaDTO materiaDTO) {
+	        if (materiaDTO.getCodigo() != null) {
+	            materiaService.actualizarMateria(materiaDTO);
 	        } else {
-	            materiaService.agregarUnaMateria(materia);
+	            materiaService.agregarUnaMateria(materiaDTO);
 	        }
 	        return new ModelAndView("redirect:listadoMaterias");
 	    }
 
 	    @GetMapping("/modificar/{codigo}")
-	    public ModelAndView modificarMateria(@PathVariable("codigo") String codigo) {
+	    public ModelAndView modificarMateria(@PathVariable("codigo") Long codigo) {
 	        ModelAndView mv = new ModelAndView("formMateria");
 	        mv.addObject("materia", materiaService.findMateriaByCodigo(codigo));
 	        mv.addObject("isEdit", true);
@@ -55,7 +55,7 @@ public class MateriaController {
 	    }
 
 	    @GetMapping("/borrarMateria/{codigo}")
-	    public ModelAndView deleteMateria(@PathVariable("codigo") String codigo) {
+	    public ModelAndView deleteMateria(@PathVariable("codigo") Long codigo) {
 	        materiaService.eliminarUnaMateria(codigo);
 	        return new ModelAndView("redirect:/materia/listadoMaterias");
 	    }

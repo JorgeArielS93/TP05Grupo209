@@ -5,64 +5,51 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import ar.edu.unju.fi.dto.AlumnoDTO;
+import ar.edu.unju.fi.mapper.AlumnoMapDTO;
 import ar.edu.unju.fi.model.Alumno;
 import ar.edu.unju.fi.repository.AlumnoRepository;
 import ar.edu.unju.fi.service.IAlumnoService;
 
 @Service
 public class AlumnoServiceImp implements IAlumnoService{
-	private static int nextLu = 1; 
 	
 	@Autowired
 	AlumnoRepository alumnoRepository;
+	
+	@Autowired
+	AlumnoMapDTO alumnoMapDTO;
 
 	@Override
-	public List<Alumno> getListaAlumnos() {
-		return alumnoRepository.findByEstado(true);
-	}
-
-	private static String generateLibreta() {
-		return "LU-" + nextLu++;
+	public List<AlumnoDTO> getListaAlumnos() {
+		List<Alumno> alumnos = alumnoRepository.findByEstado(true);
+		return alumnoMapDTO.listAlumnoToListAlumnoDTO(alumnos);
 	}
 	 
 	@Override
-	public Alumno findAlumnoByLu(String lu) {
-		return alumnoRepository.findById(lu).orElse(null);
+	public AlumnoDTO findAlumnoByLu(Long lu) {
+		return alumnoMapDTO.toDto(alumnoRepository.findById(lu).get());
 	}
 
 	@Override
-	public void agregarUnAlumno(Alumno alumno) {
-		alumno.setEstado(true);
-		alumno.setLu(generateLibreta());
-		alumnoRepository.save(alumno);
+	public void agregarUnAlumno(AlumnoDTO alumnoDTO) {
+		alumnoDTO.setEstado(true);
+        alumnoRepository.save(alumnoMapDTO.toEntity(alumnoDTO));
 	}
 
 	@Override
-	public void actualizarAlumno(Alumno alumno) {
-		Alumno existingAlumno = alumnoRepository.findById(alumno.getLu()).orElse(null);
-		if (existingAlumno != null) {
-			existingAlumno.setDni(alumno.getDni());
-            existingAlumno.setNombre(alumno.getNombre());
-            existingAlumno.setApellido(alumno.getApellido());
-            existingAlumno.setEmail(alumno.getEmail());
-            existingAlumno.setTelefono(alumno.getTelefono());
-            existingAlumno.setFechaNac(alumno.getFechaNac());
-            existingAlumno.setDomicilio(alumno.getDomicilio());
-            
-            alumnoRepository.save(existingAlumno);
+	public void actualizarAlumno(AlumnoDTO alumnoDTO) {
+		alumnoRepository.save(alumnoMapDTO.toEntity(alumnoDTO));
+	}
+
+	@Override
+	public void eliminarUnAlumno(Long lu) {
+		AlumnoDTO alumnoDTO = findAlumnoByLu(lu);
+        if (alumnoDTO != null) {
+            alumnoDTO.setEstado(false);
+            alumnoRepository.save(alumnoMapDTO.toEntity(alumnoDTO));
         } else {
-            throw new RuntimeException("El alumno con libreta " + alumno.getLu() + " no existe.");
-        }
-	}
-
-	@Override
-	public void eliminarUnAlumno(String lu) {
-		Alumno alumno = findAlumnoByLu(lu);
-        if (alumno != null) {
-            alumno.setEstado(false);
-            alumnoRepository.save(alumno);
-        } else {
-            throw new RuntimeException("El alumno con libreta " + lu + " no existe.");
+            throw new RuntimeException("El alumno con lu " + lu + " no existe.");
         }
 	}
 }

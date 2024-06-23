@@ -4,13 +4,13 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import ar.edu.unju.fi.model.Alumno;
+import ar.edu.unju.fi.dto.AlumnoDTO;
 
 @Service
 public interface IAlumnoService {
-	public List<Alumno> getListaAlumnos();
-	public Alumno findAlumnoByLu(String lu);
-	public void agregarUnAlumno(Alumno alumno);
-	public void actualizarAlumno(Alumno alumno);
-	public void eliminarUnAlumno(String lu);
+	public List<AlumnoDTO> getListaAlumnos();
+	public AlumnoDTO findAlumnoByLu(Long lu);
+	public void agregarUnAlumno(AlumnoDTO alumnoDTO);
+	public void actualizarAlumno(AlumnoDTO alumnoDTO);
+	public void eliminarUnAlumno(Long lu);
 }

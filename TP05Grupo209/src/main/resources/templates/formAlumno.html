@@ -46,6 +46,9 @@
 				<div>
 					<input type="hidden" class="form-control" id="lu" name="lu"data-th-field="*{lu}" >
 				</div>
+				<div>
+					<input type="hidden" class="form-control" id="estado" name="estado"data-th-field="*{estado}" >
+				</div>
 				<div class="col-12 d-flex justify-content-center gap-2">
 					<input type="submit" class="btn btn-lg btn-success" th:value="${isEdit} ? 'Modificar' : 'Agregar'">
 					<a class="btn btn-lg btn-secondary" href="/alumno/listaAlumnos">Regresar</a>

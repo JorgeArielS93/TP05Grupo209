@@ -2,6 +2,7 @@ package ar.edu.unju.fi.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import ar.edu.unju.fi.dto.DocenteDTO;
 import ar.edu.unju.fi.service.IDocenteService;
+import jakarta.validation.Valid;
 
 @Controller
 @RequestMapping("/docente")
@@ -38,16 +40,25 @@ public class DocenteController {
     }
 
     @PostMapping("guardarDocente")
-    public ModelAndView guardarDocente(@ModelAttribute("maestro") DocenteDTO docenteDTO) {
-        if (docenteDTO.getLegajo() != null) {
-            // Si legajo no es nulo, actualizamos el docente existente
-            docenteService.actualizarDocente(docenteDTO);
+    public ModelAndView guardarDocente(@Valid @ModelAttribute("maestro") DocenteDTO docenteDTO, BindingResult result) {
+        if (result.hasErrors()) {
+            ModelAndView mv = new ModelAndView("formDocente");
+            mv.addObject("maestro", docenteDTO);
+            mv.addObject("isEdit", docenteDTO.getLegajo() != null);
+            return mv;
         } else {
-            // Si legajo es nulo, agregamos un nuevo docente
-            docenteService.agregarUnDocente(docenteDTO);
+            if (docenteDTO.getLegajo() != null) {
+                // Si legajo no es nulo, actualizamos el docente existente
+                docenteService.actualizarDocente(docenteDTO);
+            } else {
+                // Si legajo es nulo, agregamos un nuevo docente
+                docenteService.agregarUnDocente(docenteDTO);
+            }
+            return new ModelAndView("redirect:/docente/listaDocentes");
         }
-        return new ModelAndView("redirect:listaDocentes");
     }
+
+
 
     @GetMapping("/modificar/{legajo}")
     public ModelAndView modificarDocente(@PathVariable("legajo") Long legajo) {

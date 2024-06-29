@@ -16,7 +16,6 @@ public interface CarreraMapDTO {
 	@Mapping(source = "id", target = "id")
 	@Mapping(source = "codigo", target = "codigo")
 	@Mapping(source = "nombre", target = "nombre")
-	@Mapping(source = "descripcion", target = "descripcion")
 	@Mapping(source = "duracion", target = "duracion")
 	@Mapping(source = "estado", target = "estado")
 

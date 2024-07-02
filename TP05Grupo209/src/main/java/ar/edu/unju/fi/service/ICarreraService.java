@@ -15,4 +15,6 @@ public interface ICarreraService {
 	void actualizarCarrera(CarreraDTO carreraDTO);
 
 	void eliminarUnaCarrera(Long id);
+	
+	List<CarreraDTO> findCarrerasByIds(List<Long> ids);
 }

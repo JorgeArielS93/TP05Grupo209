@@ -1,7 +1,11 @@
 package ar.edu.unju.fi.dto;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.stereotype.Component;
 
+import ar.edu.unju.fi.model.Materia;
 import jakarta.validation.constraints.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -30,6 +34,8 @@ public class DocenteDTO {
     @NotBlank(message = "Debe ingresar el teléfono")
     @Pattern(regexp = "^\\+?[0-9. ()-]{7,25}$", message = "Debe ingresar un teléfono válido")
     private String telefono;
-
+    
+    private List<Materia> materias=new ArrayList<Materia>();
+    
     private boolean estado;
 }

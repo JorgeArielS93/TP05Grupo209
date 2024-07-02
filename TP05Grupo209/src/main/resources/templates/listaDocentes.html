@@ -27,6 +27,7 @@
 							<th scope="col">Nombre</th>
 							<th scope="col">Email</th>
 							<th scope="col">Teléfono</th>
+							<th scope="col">Materias</th>
 							<th scope="col" class="text-center">Acciones</th>
 							
 						</tr>
@@ -38,13 +39,17 @@
 							<td th:text="${docente.nombre}"></td>
 							<td th:text="${docente.email}"></td>
 							<td th:text="${docente.telefono}"></td>
+							
+							<td>
+                                <ul>
+                                    <li th:each="materia : ${docente.materias}" th:text="${materia.nombre}"></li>
+                                </ul>
+                            </td>
+							
 							<td class="text-center">
 								<div class="d-flex justify-content-center">
-									<a class="btn btn-warning me-2"
-										th:href="@{/docente/modificar/}+${docente.legajo}">Editar</a>
-									<a class="btn btn-danger"
-										th:href="@{/docente/borrarDocente/}+${docente.legajo}"
-										type="button">Eliminar</a>
+									<a class="btn btn-warning me-2" th:href="@{/docente/modificar/}+${docente.legajo}">Editar</a>
+									<a class="btn btn-danger" th:href="@{/docente/borrarDocente/}+${docente.legajo}" type="button">Eliminar</a>
 								</div>
 							</td>
 						</tr>

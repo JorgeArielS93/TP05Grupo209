@@ -1,6 +1,8 @@
 package ar.edu.unju.fi.dto;
 
+
 import org.springframework.stereotype.Component;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -14,4 +16,6 @@ public class MateriaDTO {
 	private int cantidadHoras;
 	private String modalidad;
 	private boolean estado;
+	private DocenteDTO profesor;  // Nuevo campo para almacenar el docente
+	private CarreraDTO carrera; // Nuevo campo para almacenar las carreras
 }

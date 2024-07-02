@@ -38,6 +38,22 @@
 					<label for="modalidad" class="form-label">Modalidad</label>
 				</div>
 				
+				<!-- Nuevo select para seleccionar docente -->
+				<div class="form-floating col-md-3">
+					<select class="form-select" id="docente" name="docente" data-th-field="*{profesor.legajo}">
+						<option th:each="docente : ${docentes}" th:value="${docente.legajo}" th:text="${docente.nombre + ' ' + docente.apellido}"></option>
+					</select>
+					<label for="docente" class="form-label">Docente</label>
+				</div>
+				
+				<!-- Nuevo select múltiple para seleccionar carreras -->
+	            <div class="form-floating col-md-6">
+	                <select class="form-select" id="carreras" name="carreras"  data-th-field="*{carrera}">
+	                    <option th:each="c : ${carrera}" th:value="${c.id}" th:text="${c.nombre}"></option>
+	                </select>
+	                <label for="carreras" class="form-label">Carreras</label>
+	            </div>
+				
 				<div>
 					<input type="hidden" class="form-control" id="codigo" name="codigo"data-th-field="*{codigo}" >
 				</div>

@@ -52,4 +52,10 @@ public class CarreraServiceImp implements ICarreraService {
 			throw new RuntimeException("La carrera con ID " + id + " no existe.");
 		}
 	}
+
+	@Override
+    public List<CarreraDTO> findCarrerasByIds(List<Long> ids) {
+        List<Carrera> carreras = carreraRepository.findAllById(ids);
+        return carreraMapDTO.listCarreraToListCarreraDTO(carreras);
+    }
 }

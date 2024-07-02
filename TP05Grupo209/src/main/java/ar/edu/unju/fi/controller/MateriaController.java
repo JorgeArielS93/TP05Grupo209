@@ -1,5 +1,6 @@
 package ar.edu.unju.fi.controller;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import ar.edu.unju.fi.dto.MateriaDTO;
+import ar.edu.unju.fi.service.ICarreraService;
+import ar.edu.unju.fi.service.IDocenteService;
 import ar.edu.unju.fi.service.IMateriaService;
 
 @Controller
@@ -20,12 +23,20 @@ public class MateriaController {
 	 	
 	 	@Autowired
 		IMateriaService materiaService;
+	 	
+	 	@Autowired
+		IDocenteService docenteService;
+	 	
+	 	@Autowired
+	    ICarreraService carreraService;
 
 	    @GetMapping("formularioMateria")
 	    public ModelAndView getFormulario() {
 	        ModelAndView mv = new ModelAndView("formMateria");
 	        mv.addObject("materia", materiaDTO);
 	        mv.addObject("isEdit", false);
+	        mv.addObject("docentes", docenteService.getListaDocentes());
+	        mv.addObject("carreras",carreraService.getListaCarreras());
 	        return mv;
 	    }
 
@@ -51,6 +62,8 @@ public class MateriaController {
 	        ModelAndView mv = new ModelAndView("formMateria");
 	        mv.addObject("materia", materiaService.findMateriaByCodigo(codigo));
 	        mv.addObject("isEdit", true);
+	        mv.addObject("docentes", docenteService.getListaDocentes());
+	        mv.addObject("carreras",carreraService.getListaCarreras());
 	        return mv;
 	    }
 

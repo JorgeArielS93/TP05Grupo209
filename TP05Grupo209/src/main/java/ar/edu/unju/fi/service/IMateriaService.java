@@ -13,4 +13,5 @@ public interface IMateriaService {
 	public void agregarUnaMateria(MateriaDTO materiaDTO);
 	public void actualizarMateria(MateriaDTO materiaDTO);
 	public void eliminarUnaMateria(Long codigo);
+	public List<MateriaDTO> findMateriasByIds(List<Long> ids);
 }

@@ -38,6 +38,17 @@
 									th:field="*{duracion}" placeholder="Cantidad Años"> <label
 									for="cantidad">Cantidad Años</label>
 							</div>
+
+							<!-- Select para materias -->
+							<div class="form-floating mb-3">
+								<select class="form-select" multiple="multiple" id="materias"
+									name="materias" th:field="*{materias}">
+									<option th:each="materia : ${materias}"
+										th:value="${materia.codigo}" th:text="${materia.nombre}"></option>
+								</select> <label for="materias">Materias</label>
+							</div>
+
+
 							<input type="hidden" th:field="*{estado}" value="true" />
 							<div class="d-flex justify-content-between">
 								<a class="btn btn-secondary" href="/carrera/listaCarreras">Regresar</a>

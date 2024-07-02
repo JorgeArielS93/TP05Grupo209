@@ -1,5 +1,8 @@
 package ar.edu.unju.fi.dto;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.stereotype.Component;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,4 +17,5 @@ public class CarreraDTO {
 	private String descripcion; // Asegúrate de que esta propiedad existe
 	private int duracion;
 	private boolean estado;
+	private List<MateriaDTO> materias=new ArrayList<MateriaDTO>();
 }

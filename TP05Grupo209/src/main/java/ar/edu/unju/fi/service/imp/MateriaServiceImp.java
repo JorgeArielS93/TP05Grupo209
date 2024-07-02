@@ -53,5 +53,11 @@ public class MateriaServiceImp implements IMateriaService {
 	            throw new RuntimeException("La materia con código " + codigo + " no existe.");
 	        }
 	}
+	
+	@Override
+    public List<MateriaDTO> findMateriasByIds(List<Long> ids) {
+        List<Materia> materias = materiaRepository.findAllById(ids);
+        return materiaMapDTO.listMateriaToListMateriaDTO(materias);
+    }
 
 }

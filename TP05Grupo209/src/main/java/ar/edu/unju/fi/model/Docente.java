@@ -1,13 +1,19 @@
 package ar.edu.unju.fi.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.stereotype.Component;
 
 import io.micrometer.common.lang.NonNull;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -39,6 +45,9 @@ public class Docente {
     @NonNull
     @Column(name = "doc_Telefono", nullable = false)
     private String telefono;
+    
+    @OneToMany(mappedBy = "profesor",cascade = CascadeType.ALL)
+    private List<Materia> materias=new ArrayList<Materia>();
 
     @NonNull
     @Column(name = "doc_Estado", nullable = false)

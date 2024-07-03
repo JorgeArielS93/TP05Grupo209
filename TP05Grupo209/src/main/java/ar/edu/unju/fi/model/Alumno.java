@@ -1,6 +1,7 @@
 package ar.edu.unju.fi.model;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Set;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Component;
@@ -59,11 +60,14 @@ public class Alumno {
     @JoinColumn(name = "carrera_id")
     private Carrera carrera;
 
-    @ManyToMany
-    @JoinTable(
-        name = "materia_alumno",
-        joinColumns = @JoinColumn(name = "alumno_id"),
-        inverseJoinColumns = @JoinColumn(name = "materia_id")
-    )
-    private Set<Materia> materias;
+	/*
+	 * @ManyToMany
+	 * 
+	 * @JoinTable( name = "materia_alumno", joinColumns = @JoinColumn(name =
+	 * "alumno_id"), inverseJoinColumns = @JoinColumn(name = "materia_id") ) private
+	 * Set<Materia> materias;
+	 */
+    
+    @ManyToMany(mappedBy = "alumnos")
+    private List<Materia> materias;
 }

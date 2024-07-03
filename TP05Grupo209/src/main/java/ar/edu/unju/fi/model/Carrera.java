@@ -30,9 +30,11 @@ public class Carrera {
     @Column(name = "estado", nullable = false)
     private boolean estado;
 
-    @OneToMany(mappedBy = "carrera", cascade = CascadeType.ALL)
-    private List<Alumno> alumnos;
+	/*
+	 * @OneToMany(mappedBy = "carrera", cascade = CascadeType.ALL) private
+	 * List<Alumno> alumnos;
+	 */
 
-    @OneToMany(mappedBy = "carrera", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "carrera", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Materia> materias;
 }

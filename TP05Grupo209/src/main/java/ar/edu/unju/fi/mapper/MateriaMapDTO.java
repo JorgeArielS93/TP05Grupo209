@@ -20,6 +20,11 @@ public interface MateriaMapDTO {
 	@Mapping(source = "modalidad", target = "modalidad")
 	@Mapping(source = "estado", target = "estado")
 	
+	  @Mapping(source = "docente", target = "docente")
+	  
+	  @Mapping(source = "carrera", target = "carrera")
+	 
+	
 	
 	MateriaDTO toDto(Materia materia);
 	@InheritInverseConfiguration

@@ -27,6 +27,8 @@
 							<th scope="col">Curso</th>
 							<th scope="col">Duración</th>
 							<th scope="col">Modalidad</th>
+							<th scope="col">Docente</th>
+							<th scope="col">Carrera</th>
 							<th scope="col" class="text-center">Acciones</th>
 							
 						</tr>
@@ -38,6 +40,16 @@
 							<td th:text="${materia.curso}"></td>
 							<td th:text="${materia.cantidadHoras}"></td>
 							<td th:text="${materia.modalidad}"></td>
+							<td>
+								<ul>
+                                    <li th:each="docente : ${materia.docente}" th:text="${docente.nombre}+' '+${docente.apellido}"></li>
+                                </ul>
+							</td>
+							<td>
+								<ul>
+                                    <li th:each="carrera : ${materia.carrera}" th:text="${carrera.nombre}"></li>
+                                </ul>
+							</td>
 							<td class="text-center">
 								<div class="d-flex justify-content-center">
 									<a class="btn btn-warning me-2"

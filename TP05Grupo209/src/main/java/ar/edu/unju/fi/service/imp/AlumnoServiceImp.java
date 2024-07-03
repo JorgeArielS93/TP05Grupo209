@@ -63,14 +63,4 @@ public class AlumnoServiceImp implements IAlumnoService{
         }
 	}
 	
-	@Override
-	public void inscribirAlumnoEnMateria(Long lu, Long materiaid) {
-		AlumnoDTO alumnoDTO = findAlumnoByLu(lu);
-		MateriaDTO materiaDTO = materiaService.findMateriaByCodigo(materiaid);
-		
-		Materia materia = materiaMapDTO.toEntity(materiaDTO);
-		Alumno alumno = alumnoMapDTO.toEntity(alumnoDTO);
-		
-		alumno.getMaterias().add(materia);
-	}
 }

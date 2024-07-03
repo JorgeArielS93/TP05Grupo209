@@ -13,5 +13,4 @@ public interface IAlumnoService {
 	public void agregarUnAlumno(AlumnoDTO alumnoDTO);
 	public void actualizarAlumno(AlumnoDTO alumnoDTO);
 	public void eliminarUnAlumno(Long lu);
-	public void inscribirAlumnoEnMateria(Long lu, Long materiaid);
 }

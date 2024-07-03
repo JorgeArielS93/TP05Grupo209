@@ -1,7 +1,10 @@
 package ar.edu.unju.fi.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -10,57 +13,61 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import ar.edu.unju.fi.dto.AlumnoDTO;
-import ar.edu.unju.fi.dto.MateriaDTO;
+import ar.edu.unju.fi.dto.CarreraDTO;
 import ar.edu.unju.fi.service.IAlumnoService;
+import ar.edu.unju.fi.service.ICarreraService;
 import ar.edu.unju.fi.service.IMateriaService;
 
 @Controller
 @RequestMapping("/alumno")
 public class AlumnoController {
-	@Autowired
-	AlumnoDTO alumnoDTO;
-	
-	@Autowired
-	MateriaDTO materiaDTO;
-	
-	@Autowired
-	IAlumnoService alumnoService;
-	
-	@Autowired
-	IMateriaService materiaService;
-	
-	@GetMapping("formularioAlumno")
+
+    @Autowired
+    private AlumnoDTO alumnoDTO;
+
+    @Autowired
+    private IAlumnoService alumnoService;
+
+    @Autowired
+    private ICarreraService carreraService;
+
+    @Autowired
+    private IMateriaService materiaService;
+
+    @GetMapping("formularioAlumno")
     public ModelAndView getFormulario() {
         ModelAndView mv = new ModelAndView("formAlumno");
-        mv.addObject("listaMaterias", materiaService.getListaMaterias());
         mv.addObject("alumno", alumnoDTO);
         mv.addObject("isEdit", false);
+        mv.addObject("listaCarreras", carreraService.getListaCarreras());
+        mv.addObject("listaMaterias", materiaService.getListaMaterias());
         return mv;
     }
-	
-	@GetMapping("listaAlumnos")
+
+    @GetMapping("listaAlumnos")
     public ModelAndView getListaAlumnos() {
         ModelAndView mv = new ModelAndView("listaAlumnos");
         mv.addObject("alumnos", alumnoService.getListaAlumnos());
         return mv;
     }
-	
-	@PostMapping("guardarAlumno")
+
+    @PostMapping("guardarAlumno")
     public ModelAndView guardarAlumno(@ModelAttribute("alumno") AlumnoDTO alumnoDTO) {
-		if (alumnoDTO.getLu() != null) {
+        if (alumnoDTO.getLu() != null) {
             alumnoService.actualizarAlumno(alumnoDTO);
         } else {
             alumnoService.agregarUnAlumno(alumnoDTO);
         }
         return new ModelAndView("redirect:listaAlumnos");
     }
-	
-	@GetMapping("/modificar/{lu}")
+
+    @GetMapping("/modificar/{lu}")
     public ModelAndView modificarAlumno(@PathVariable("lu") Long lu) {
         ModelAndView mv = new ModelAndView("formAlumno");
-        mv.addObject("listaMaterias", materiaService.getListaMaterias());
         mv.addObject("alumno", alumnoService.findAlumnoByLu(lu));
         mv.addObject("isEdit", true);
+        mv.addObject("listaCarreras", carreraService.getListaCarreras());
+        mv.addObject("listaMaterias", materiaService.getListaMaterias());
         return mv;
     }
 
@@ -69,5 +76,4 @@ public class AlumnoController {
         alumnoService.eliminarUnAlumno(lu);
         return new ModelAndView("redirect:/alumno/listaAlumnos");
     }
-    
 }

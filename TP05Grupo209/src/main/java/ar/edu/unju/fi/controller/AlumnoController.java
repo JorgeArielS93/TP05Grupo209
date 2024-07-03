@@ -103,6 +103,11 @@ public class AlumnoController {
         return mv;
     }
     
+    @PostMapping("/filtrarPorMateria")
+    public String redirigirAlumnosPorMateria(@RequestParam("materiaId") Long materiaId) {
+        return "redirect:/alumno/filtrarPorMateria/" + materiaId;
+    }
+    
     @GetMapping("/filtrarPorMateria/{codigo}")
     public ModelAndView alumnosPorMateria(@PathVariable("codigo")Long codigo) {
         ModelAndView mv = new ModelAndView("listaAlumnosPorMateria");

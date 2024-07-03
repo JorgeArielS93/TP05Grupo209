@@ -35,4 +35,10 @@ public class Carrera {
 
 	@OneToMany(mappedBy = "carrera", cascade = CascadeType.ALL)
 	private List<Materia> materias;
+	
+	@Override
+	public String toString() {
+	    return this.id.toString();
+	}
+
 }

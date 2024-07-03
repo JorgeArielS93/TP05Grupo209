@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Component;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -18,4 +19,5 @@ public class CarreraDTO {
 	private int duracion;
 	private boolean estado;
 	private List<MateriaDTO> materias=new ArrayList<MateriaDTO>();
+	private List<AlumnoDTO> alumnos=new ArrayList<AlumnoDTO>();
 }

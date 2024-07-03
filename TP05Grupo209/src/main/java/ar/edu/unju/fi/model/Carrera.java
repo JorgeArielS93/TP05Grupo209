@@ -6,8 +6,10 @@ import java.util.List;
 import org.springframework.stereotype.Component;
 
 import io.micrometer.common.lang.NonNull;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -47,7 +49,9 @@ public class Carrera {
 	@Column(name = "estado", nullable = false)
 	private boolean estado;
 	
-	@NonNull
-	@OneToMany
-	private List<Materia> materias =new ArrayList<Materia>();
+	@OneToMany(mappedBy="carrera", cascade=CascadeType.ALL)
+    private List<Materia> materias = new ArrayList<Materia>();
+	
+	@OneToMany(mappedBy = "carrera", cascade = CascadeType.ALL)
+	private List<Alumno> alumnos=new ArrayList<Alumno>();
 }

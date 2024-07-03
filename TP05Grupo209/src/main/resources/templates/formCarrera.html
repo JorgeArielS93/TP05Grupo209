@@ -41,10 +41,9 @@
 
 							<!-- Select para materias -->
 							<div class="form-floating mb-3">
-								<select class="form-select" multiple="multiple" id="materias"
-									name="materias" th:field="*{materias}">
-									<option th:each="materia : ${materias}"
-										th:value="${materia.codigo}" th:text="${materia.nombre}"></option>
+								<select class="form-control"  id="materias" name="materias" th:field="*{materias}" required multiple>
+									<option value="">Seleccionar materia...</option>
+									<option th:each="materia : ${materias}" th:value="${materia.codigo}" th:text="${materia.nombre + ' ' + materia.curso}"></option>
 								</select> <label for="materias">Materias</label>
 							</div>
 

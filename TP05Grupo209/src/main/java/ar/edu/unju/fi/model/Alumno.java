@@ -2,15 +2,19 @@ package ar.edu.unju.fi.model;
 
 import java.time.LocalDate;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Component;
 
 import io.micrometer.common.lang.NonNull;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -59,4 +63,9 @@ public class Alumno {
 	@NonNull
     @Column(name = "alu_Estado", nullable = false)
 	private boolean estado;
+	
+	@Autowired
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "CARRERA_ID")
+	private Carrera carrera;
 }

@@ -43,6 +43,17 @@
 					<input type="text" class="form-control" id="domicilio" name="domicilio" data-th-field="*{domicilio}" placeholder="name@example" required>
 					<label for="domicilio" class="form-label">Domicilio</label>
 				</div>
+				
+				
+				<!-- Nuevo select para seleccionar carrera -->
+				<div class="form-floating col-md-3">
+					<select class="form-select" id="carrera" name="carrera" data-th-field="*{carrera.codigo}">
+						<option th:each="c : ${carreras}" th:value="${c.id}" th:text="${c.nombre}"></option>
+					</select> <label for="carrera" class="form-label">Carrera</label>
+				</div>
+
+
+
 				<div>
 					<input type="hidden" class="form-control" id="lu" name="lu"data-th-field="*{lu}" >
 				</div>

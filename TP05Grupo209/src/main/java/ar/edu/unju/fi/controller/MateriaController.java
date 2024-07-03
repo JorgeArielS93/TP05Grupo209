@@ -36,7 +36,6 @@ public class MateriaController {
 	        mv.addObject("materia", materiaDTO);
 	        mv.addObject("isEdit", false);
 	        mv.addObject("docentes", docenteService.getListaDocentes());
-	        mv.addObject("carreras",carreraService.getListaCarreras());
 	        return mv;
 	    }
 
@@ -63,7 +62,6 @@ public class MateriaController {
 	        mv.addObject("materia", materiaService.findMateriaByCodigo(codigo));
 	        mv.addObject("isEdit", true);
 	        mv.addObject("docentes", docenteService.getListaDocentes());
-	        mv.addObject("carreras",carreraService.getListaCarreras());
 	        return mv;
 	    }
 

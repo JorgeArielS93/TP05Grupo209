@@ -3,6 +3,7 @@ package ar.edu.unju.fi.model;
 import org.springframework.stereotype.Component;
 
 import io.micrometer.common.lang.NonNull;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -51,7 +52,7 @@ public class Materia {
 	private String nombre;
 	
 	@NonNull
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name= "id_carrera")
-	private Carrera carrera;
+	@ManyToOne(cascade=CascadeType.ALL)
+    @JoinColumn(name = "id_carrera")
+    private Carrera carrera;
 }

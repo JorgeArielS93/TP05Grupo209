@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import ar.edu.unju.fi.dto.AlumnoDTO;
+import ar.edu.unju.fi.model.Carrera;
 import ar.edu.unju.fi.service.IAlumnoService;
+import ar.edu.unju.fi.service.ICarreraService;
 
 @Controller
 @RequestMapping("/alumno")
@@ -20,11 +22,14 @@ public class AlumnoController {
 	
 	@Autowired
 	IAlumnoService alumnoService;
+	@Autowired
+	ICarreraService carreraService;
 	
 	@GetMapping("formularioAlumno")
     public ModelAndView getFormulario() {
         ModelAndView mv = new ModelAndView("formAlumno");
         mv.addObject("alumno", alumnoDTO);
+        mv.addObject("carreras",carreraService.getListaCarreras());
         mv.addObject("isEdit", false);
         return mv;
     }
@@ -38,6 +43,11 @@ public class AlumnoController {
 	
 	@PostMapping("guardarAlumno")
     public ModelAndView guardarAlumno(@ModelAttribute("alumno") AlumnoDTO alumnoDTO) {
+		
+		
+	    if (alumnoDTO.getCarrera().getId() == null) {
+	    	alumnoDTO.setCarrera (carreraService.findCarreraById(alumnoDTO.getCarrera().getId()));
+	    }
 		if (alumnoDTO.getLu() != null) {
             alumnoService.actualizarAlumno(alumnoDTO);
         } else {
@@ -50,6 +60,7 @@ public class AlumnoController {
     public ModelAndView modificarAlumno(@PathVariable("lu") Long lu) {
         ModelAndView mv = new ModelAndView("formAlumno");
         mv.addObject("alumno", alumnoService.findAlumnoByLu(lu));
+        mv.addObject("carreras",carreraService.getListaCarreras());
         mv.addObject("isEdit", true);
         return mv;
     }

@@ -22,4 +22,5 @@ public class AlumnoDTO {
 	private String domicilio;
 	private Long lu;
 	private boolean estado;
+	private CarreraDTO carrera;
 }

@@ -42,12 +42,13 @@ public class CarreraController {
 
     @PostMapping("/guardarCarrera")
     public String saveCarrera(@ModelAttribute("nuevaCarrera") CarreraDTO carreraParaGuardar) {
-        // Convertir los IDs de las materias seleccionadas a objetos MateriaDTO
-        List<MateriaDTO> materiasSeleccionadas = carreraParaGuardar.getMaterias().stream()
-            .map(materia -> materiaService.findMateriaByCodigo(materia.getCodigo()))
-            .collect(Collectors.toList());
-        
-        carreraParaGuardar.setMaterias(materiasSeleccionadas);
+    	//Estoy guardando la carrera en la materia
+    	//si no hago esto solo se está guardando la materia en carrera
+    	//fijarse mappedBy
+    	for (MateriaDTO m : carreraParaGuardar.getMaterias()) {
+			m.setCarrera(carreraParaGuardar);
+		}
+    	
         carreraParaGuardar.setEstado(true); // Asume que una carrera nueva siempre está activa
         carreraService.agregarUnaCarrera(carreraParaGuardar);
         return "redirect:/carrera/listaCarreras";
@@ -87,8 +88,6 @@ public class CarreraController {
         if (carreraModificada.getId() == null) {
             throw new RuntimeException("El ID de la carrera no puede ser nulo.");
         }
-        List<Long> materiaIds = carreraModificada.getMaterias().stream().map(MateriaDTO::getCodigo).collect(Collectors.toList());
-        carreraModificada.setMaterias(materiaService.findMateriasByIds(materiaIds));  // Asocia materias seleccionadas
         carreraService.actualizarCarrera(carreraModificada);
         redirectAttributes.addFlashAttribute("mensaje", "La carrera ha sido modificada exitosamente.");
         return "redirect:/carrera/listaCarreras";

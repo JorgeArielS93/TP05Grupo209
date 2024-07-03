@@ -20,6 +20,7 @@ public interface CarreraMapDTO {
 	@Mapping(source = "duracion", target = "duracion")
 	@Mapping(source = "estado", target = "estado")
 	@Mapping(source = "materias", target = "materias")
+	@Mapping(source = "alumnos", target = "alumnos")
 
 	CarreraDTO toDto(Carrera carrera);
 

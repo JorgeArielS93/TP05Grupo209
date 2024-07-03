@@ -1,6 +1,9 @@
 package ar.edu.unju.fi.controller;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -10,9 +13,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import ar.edu.unju.fi.dto.AlumnoDTO;
+import ar.edu.unju.fi.dto.MateriaDTO;
+import ar.edu.unju.fi.model.Materia;
 import ar.edu.unju.fi.service.IAlumnoService;
 import ar.edu.unju.fi.service.ICarreraService;
 import ar.edu.unju.fi.service.IMateriaService;
@@ -25,6 +31,9 @@ public class AlumnoController {
     @Autowired
     private AlumnoDTO alumnoDTO;
 
+    @Autowired
+    private MateriaDTO materiaDTO;
+    
     @Autowired
     private IAlumnoService alumnoService;
 
@@ -86,5 +95,29 @@ public class AlumnoController {
         return new ModelAndView("redirect:/alumno/listaAlumnos");
     }
     
+    @GetMapping("/filtrarPorMateria")
+    public ModelAndView seleccionarMateria() {
+        ModelAndView mv = new ModelAndView("formAlumnosPorMateria");
+        mv.addObject("listaMaterias", materiaService.getListaMaterias());
+        mv.addObject("materia", materiaDTO);
+        return mv;
+    }
+    
+    @GetMapping("/filtrarPorMateria/{codigo}")
+    public ModelAndView alumnosPorMateria(@PathVariable("codigo")Long codigo) {
+        ModelAndView mv = new ModelAndView("listaAlumnosPorMateria");
+        List<AlumnoDTO> alumnos = alumnoService.getListaAlumnos();
+        List<AlumnoDTO> filtrados = new ArrayList<AlumnoDTO>();
+
+        for (AlumnoDTO a : alumnos) {
+        	for (Materia materia : a.getMaterias()) {
+        		if(materia.getCodigo().equals(codigo)) {
+        			filtrados.add(a);
+        		}
+        	}
+        }
+        mv.addObject("alumnos", filtrados);
+        return mv;
+    }
     
 }

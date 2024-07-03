@@ -39,16 +39,16 @@
 				</div>
 				
 				<div class="form-floating col-md-3">
-					<select class="form-select" id="docente" th-field="*{docente}">
-								<option dat-th-value="${isEdit} ? 'Seleccionar docente' : ''">Seleccionar docente</option>
-								<option data-th-each="d: ${docentes}" data-th-value="${d.legajo}" data-th-text="${d.nombre}+' '+${d.apellido}"></option>
+					<select class="form-select" id="docente" data-th-field="*{docente.legajo}">
+								<option value="">Seleccionar docente</option>
+								<option data-th-each="d: ${docentes}" data-th-value="${d.legajo}"  data-th-text="${d.nombre}+' '+${d.apellido}"></option>
 								</select>
 					<label for="docente" class="form-label">Docente</label>
 				</div>
 				
 				<div class="form-floating col-md-3">
-					<select class="form-select" id="carrera" th-field="*{carrera}">
-								<option data-th-value="${isEdit} ? 'Seleccionar carrera' : ''" >Seleccionar carrera</option>
+					<select class="form-select" id="carrera" data-th-field="*{carrera.id}">
+								<option value="" >Seleccionar carrera</option>
 								<option data-th-each="c: ${carreras}" data-th-value="${c.id}" data-th-text="${c.nombre}" data-th-if="${c.estado}"></option>
 								</select>
 					<label for="carrera" class="form-label">Carrera</label>

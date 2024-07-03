@@ -6,27 +6,25 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ar.edu.unju.fi.dto.AlumnoDTO;
-import ar.edu.unju.fi.dto.MateriaDTO;
 import ar.edu.unju.fi.mapper.AlumnoMapDTO;
 import ar.edu.unju.fi.mapper.MateriaMapDTO;
 import ar.edu.unju.fi.model.Alumno;
-import ar.edu.unju.fi.model.Materia;
 import ar.edu.unju.fi.repository.AlumnoRepository;
 import ar.edu.unju.fi.service.IAlumnoService;
 import ar.edu.unju.fi.service.IMateriaService;
 
 @Service
-public class AlumnoServiceImp implements IAlumnoService{
-	
+public class AlumnoServiceImp implements IAlumnoService {
+
 	@Autowired
 	AlumnoRepository alumnoRepository;
-	
+
 	@Autowired
 	AlumnoMapDTO alumnoMapDTO;
-	
+
 	@Autowired
 	MateriaMapDTO materiaMapDTO;
-	
+
 	@Autowired
 	IMateriaService materiaService;
 
@@ -35,7 +33,7 @@ public class AlumnoServiceImp implements IAlumnoService{
 		List<Alumno> alumnos = alumnoRepository.findByEstado(true);
 		return alumnoMapDTO.listAlumnoToListAlumnoDTO(alumnos);
 	}
-	 
+
 	@Override
 	public AlumnoDTO findAlumnoByLu(Long lu) {
 		return alumnoMapDTO.toDto(alumnoRepository.findById(lu).get());
@@ -44,7 +42,7 @@ public class AlumnoServiceImp implements IAlumnoService{
 	@Override
 	public void agregarUnAlumno(AlumnoDTO alumnoDTO) {
 		alumnoDTO.setEstado(true);
-        alumnoRepository.save(alumnoMapDTO.toEntity(alumnoDTO));
+		alumnoRepository.save(alumnoMapDTO.toEntity(alumnoDTO));
 	}
 
 	@Override
@@ -55,12 +53,12 @@ public class AlumnoServiceImp implements IAlumnoService{
 	@Override
 	public void eliminarUnAlumno(Long lu) {
 		AlumnoDTO alumnoDTO = findAlumnoByLu(lu);
-        if (alumnoDTO != null) {
-            alumnoDTO.setEstado(false);
-            alumnoRepository.save(alumnoMapDTO.toEntity(alumnoDTO));
-        } else {
-            throw new RuntimeException("El alumno con lu " + lu + " no existe.");
-        }
+		if (alumnoDTO != null) {
+			alumnoDTO.setEstado(false);
+			alumnoRepository.save(alumnoMapDTO.toEntity(alumnoDTO));
+		} else {
+			throw new RuntimeException("El alumno con lu " + lu + " no existe.");
+		}
 	}
-	
+
 }

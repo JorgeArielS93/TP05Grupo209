@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import ar.edu.unju.fi.dto.AlumnoDTO;
 import ar.edu.unju.fi.mapper.AlumnoMapDTO;
 import ar.edu.unju.fi.model.Alumno;
+import ar.edu.unju.fi.model.Materia;
 import ar.edu.unju.fi.repository.AlumnoRepository;
 import ar.edu.unju.fi.service.IAlumnoService;
 
@@ -59,4 +60,5 @@ public class AlumnoServiceImp implements IAlumnoService {
         List<Alumno> alumnos = alumnoRepository.findByCarreraId(carreraId);
         return alumnos.stream().map(alumnoMapDTO::toDto).collect(Collectors.toList());
     }
+    
 }

@@ -1,7 +1,6 @@
 package ar.edu.unju.fi.model;
 
 import java.util.List;
-import java.util.Set;
 import org.springframework.stereotype.Component;
 import io.micrometer.common.lang.NonNull;
 import jakarta.persistence.*;

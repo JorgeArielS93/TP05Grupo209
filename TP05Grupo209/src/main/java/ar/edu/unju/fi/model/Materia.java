@@ -51,4 +51,10 @@ public class Materia {
     @OneToOne
     @JoinColumn(name = "docente_id")
     private Docente docente;
+    
+    @Override
+    public String toString() {
+        return this.codigo.toString();
+    }
+
 }

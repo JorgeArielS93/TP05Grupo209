@@ -1,5 +1,6 @@
 package ar.edu.unju.fi.model;
 
+import java.util.List;
 import java.util.Set;
 import org.springframework.stereotype.Component;
 import io.micrometer.common.lang.NonNull;
@@ -41,7 +42,7 @@ public class Materia {
     private String nombre;
     
     @ManyToMany(mappedBy = "materias")
-    private Set<Alumno> alumnos;
+    private List<Alumno> alumnos;
     
     @ManyToOne
     @JoinColumn(name = "carrera_id")

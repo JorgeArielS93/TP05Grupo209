@@ -1,7 +1,7 @@
 package ar.edu.unju.fi.model;
 
 import java.time.LocalDate;
-import java.util.Set;
+import java.util.List;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Component;
 import io.micrometer.common.lang.NonNull;
@@ -11,7 +11,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Component
-@Entity
+@Entity(name = "ALUMNOS")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -65,5 +65,5 @@ public class Alumno {
         joinColumns = @JoinColumn(name = "alumno_id"),
         inverseJoinColumns = @JoinColumn(name = "materia_id")
     )
-    private Set<Materia> materias;
+    private List<Materia> materias;
 }

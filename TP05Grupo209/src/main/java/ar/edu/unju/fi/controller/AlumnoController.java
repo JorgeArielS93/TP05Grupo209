@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import ar.edu.unju.fi.dto.AlumnoDTO;
+import ar.edu.unju.fi.dto.MateriaDTO;
 import ar.edu.unju.fi.service.IAlumnoService;
+import ar.edu.unju.fi.service.IMateriaService;
 
 @Controller
 @RequestMapping("/alumno")
@@ -19,11 +21,18 @@ public class AlumnoController {
 	AlumnoDTO alumnoDTO;
 	
 	@Autowired
+	MateriaDTO materiaDTO;
+	
+	@Autowired
 	IAlumnoService alumnoService;
+	
+	@Autowired
+	IMateriaService materiaService;
 	
 	@GetMapping("formularioAlumno")
     public ModelAndView getFormulario() {
         ModelAndView mv = new ModelAndView("formAlumno");
+        mv.addObject("listaMaterias", materiaService.getListaMaterias());
         mv.addObject("alumno", alumnoDTO);
         mv.addObject("isEdit", false);
         return mv;
@@ -49,6 +58,7 @@ public class AlumnoController {
 	@GetMapping("/modificar/{lu}")
     public ModelAndView modificarAlumno(@PathVariable("lu") Long lu) {
         ModelAndView mv = new ModelAndView("formAlumno");
+        mv.addObject("listaMaterias", materiaService.getListaMaterias());
         mv.addObject("alumno", alumnoService.findAlumnoByLu(lu));
         mv.addObject("isEdit", true);
         return mv;
@@ -59,4 +69,5 @@ public class AlumnoController {
         alumnoService.eliminarUnAlumno(lu);
         return new ModelAndView("redirect:/alumno/listaAlumnos");
     }
+    
 }

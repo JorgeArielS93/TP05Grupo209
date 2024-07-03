@@ -30,23 +30,29 @@ public class AlumnoDTO {
     @Size(min=2,max = 50, message = "El nombre debe contener como mínimo 2 caracteres y como máximo 50 caracteres")
     @Pattern(regexp= "[a-zA-ZÁÉÍÓÚáéíóúÑñ ]*", message="Debe ingresar únicamente letras y espacios")
 	private String nombre;
+	
 	@NotBlank(message = "Debe ingresar el apellido del alumno")
     @Size(min=2,max = 50, message = "El apellido debe contener como mínimo 2 caracteres y como máximo 50 caracteres")
     @Pattern(regexp= "[a-zA-ZÁÉÍÓÚáéíóúÑñ ]*", message="Debe ingresar únicamente letras y espacios")
 	private String apellido;
+	
 	@NotBlank(message = "Debe ingresar el email")
     @Email(message = "Debe ingresar un email válido")
 	private String email;
+	
 	@NotBlank(message = "Debe ingresar el teléfono")
 	@Size(min=10, max=15, message = "El teléfono debe contener como mínimo 10 caracteres y como máximo 15 caracteres")
 	private String telefono;
+	
 	@NotNull(message = "Debe ingresar la fecha de nacimiento")
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Past(message = "La fecha de nacimiento debe estar en el pasado")
 	private LocalDate fechaNac;
+	
 	@NotBlank(message = "Debe ingresar el domicilio")
 	@Size(min=2, max=100, message = "El domicilio debe contener como mínimo 2 caracteres y como máximo 100 caracteres")
 	private String domicilio;
+	
 	private Long lu;
 	private boolean estado;
 	private Carrera carrera;

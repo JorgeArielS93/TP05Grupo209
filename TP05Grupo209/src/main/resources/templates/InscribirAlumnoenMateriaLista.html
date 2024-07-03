@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Inscripciones</title>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<div class="container">
+    <header th:replace="~{fragments/header :: header}"></header>
+    <div class="row mt-4">
+        <div class="col-md-8 offset-md-2">
+            <div class="card shadow" style="background-color: rgba(255, 255, 255, 0.8);">
+                <div class="card-header">
+                    <h3 class="card-title mb-0">Inscripciones</h3>
+                </div>
+                <div class="card-body">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Alumno</th>
+                                <th>Materia</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="inscripcion : ${inscripciones}">
+                                <td th:text="${inscripcion.alumnoNombre} + ' ' + ${inscripcion.alumnoApellido}"></td>
+                                <td th:text="${inscripcion.materiaNombre}"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer th:replace="~{fragments/footer :: footer}"></footer>
+</div>
+<script th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>

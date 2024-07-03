@@ -4,8 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title th:text="${pageTitle}">Formulario Carreras</title>
-<link rel="stylesheet"
-	th:href="@{/webjars/bootstrap/5.3.3/css/bootstrap.min.css}">
+<link rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.3/css/bootstrap.min.css}">
 <link rel="stylesheet" th:href="@{/css/styles.css}">
 </head>
 <body>
@@ -13,8 +12,7 @@
 	<div class="container my-5">
 		<div class="row">
 			<div class="col-md-8 offset-md-2">
-				<div class="card shadow"
-					style="background-color: rgba(255, 255, 255, 0.8);">
+				<div class="card shadow" style="background-color: rgba(255, 255, 255, 0.8);">
 					<div class="card-header">
 						<h3 class="card-title mb-0">Formulario Carrera</h3>
 					</div>
@@ -24,25 +22,24 @@
 							method="post">
 							<input type="hidden" th:field="*{id}" />
 							<div class="form-floating mb-3">
-								<input type="text" class="form-control" id="codigo"
-									th:field="*{codigo}" placeholder="Código"> <label
-									for="codigo">Código</label>
+								<input type="text" class="form-control" id="codigo" th:field="*{codigo}" placeholder="Código"> 
+								<label for="codigo">Código</label>
+								<div class="text-danger" th:if="${#fields.hasErrors('codigo')}" th:errors="*{codigo}"></div>
 							</div>
 							<div class="form-floating mb-3">
-								<input type="text" class="form-control" id="nombre"
-									th:field="*{nombre}" placeholder="Nombre Carrera"> <label
-									for="nombre">Nombre Carrera</label>
+								<input type="text" class="form-control" id="nombre" th:field="*{nombre}" placeholder="Nombre Carrera"> 
+								<label for="nombre">Nombre Carrera</label>
+								<div class="text-danger" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></div>
 							</div>
 							<div class="form-floating mb-3">
-								<input type="number" class="form-control" id="cantidad"
-									th:field="*{duracion}" placeholder="Cantidad Años"> <label
-									for="cantidad">Cantidad Años</label>
+								<input type="number" class="form-control" id="cantidad" th:field="*{duracion}" placeholder="Cantidad Años"> 
+								<label for="cantidad">Cantidad Años</label>
+								<div class="text-danger" th:if="${#fields.hasErrors('duracion')}" th:errors="*{duracion}"></div>
 							</div>
 							<input type="hidden" th:field="*{estado}" value="true" />
 							<div class="d-flex justify-content-between">
 								<a class="btn btn-secondary" href="/carrera/listaCarreras">Regresar</a>
-								<button type="submit" class="btn btn-primary">Guardar
-									Carrera</button>
+								<button type="submit" class="btn btn-primary">Guardar Carrera</button>
 							</div>
 						</form>
 					</div>

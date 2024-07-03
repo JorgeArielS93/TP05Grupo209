@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inscribir Alumno en Materia</title>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<div class="container">
+    <header th:replace="fragments/header :: header"></header>
+    <div class="row mt-4">
+        <h2>Inscribir Alumno en Materia</h2>
+        <form th:action="@{/alumno/inscribir}" method="post" class="row g-3">
+            <div class="form-floating col-md-6">
+                <select class="form-select" id="alumno" name="alumnoId" required>
+                    <option value="" disabled selected>Seleccione un alumno</option>
+                    <option th:each="alumno : ${alumnos}" th:value="${alumno.lu}" th:text="${alumno.nombre} + ' ' + ${alumno.apellido}"></option>
+                </select>
+                <label for="alumno">Alumno</label>
+            </div>
+            <div class="form-floating col-md-6">
+                <select class="form-select" id="materia" name="materiaId" required>
+                    <option value="" disabled selected>Seleccione una materia</option>
+                    <option th:each="materia : ${materias}" th:value="${materia.codigo}" th:text="${materia.nombre}"></option>
+                </select>
+                <label for="materia">Materia</label>
+            </div>
+            <div class="col-12 d-flex justify-content-center gap-2">
+                <button type="submit" class="btn btn-primary">Inscribir</button>
+            </div>
+        </form>
+        <div th:if="${error}" class="alert alert-danger mt-3" th:text="${error}"></div>
+        <div th:if="${success}" class="alert alert-success mt-3" th:text="${success}"></div>
+    </div>
+
+    <div class="row mt-5">
+        <h3>Inscripciones</h3>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Alumno</th>
+                    <th>Materia</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="inscripcion : ${inscripciones}">
+                    <td th:text="${inscripcion.alumnoNombre} + ' ' + ${inscripcion.alumnoApellido}"></td>
+                    <td th:text="${inscripcion.materiaNombre}"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <footer th:replace="fragments/footer :: footer"></footer>
+</div>
+<script th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>

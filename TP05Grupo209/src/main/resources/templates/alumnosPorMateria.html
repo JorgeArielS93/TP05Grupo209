@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alumnos por Materia</title>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<div class="container">
+    <header th:replace="fragments/header :: header"></header>
+    <div class="row mt-4">
+        <h2>Alumnos por Materia</h2>
+        <form th:action="@{/materia/alumnos}" method="get" class="row g-3">
+            <div class="form-floating col-md-6">
+                <select class="form-select" id="materia" name="materiaId" required>
+                    <option value="" disabled selected>Seleccione una materia</option>
+                    <option th:each="materia : ${materias}" th:value="${materia.codigo}" th:text="${materia.nombre}"></option>
+                </select>
+                <label for="materia">Materia</label>
+            </div>
+            <div class="col-12 d-flex justify-content-center gap-2">
+                <button type="submit" class="btn btn-primary">Consultar</button>
+            </div>
+        </form>
+    </div>
+    <div class="row mt-4" th:if="${alumnos != null}">
+        <h3>Alumnos Inscritos</h3>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>LU</th>
+                    <th>DNI</th>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>Email</th>
+                    <th>Teléfono</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="alumno : ${alumnos}">
+                    <td th:text="${alumno.lu}"></td>
+                    <td th:text="${alumno.dni}"></td>
+                    <td th:text="${alumno.nombre}"></td>
+                    <td th:text="${alumno.apellido}"></td>
+                    <td th:text="${alumno.email}"></td>
+                    <td th:text="${alumno.telefono}"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <footer th:replace="fragments/footer :: footer"></footer>
+</div>
+<script th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>

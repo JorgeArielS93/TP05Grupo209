@@ -3,6 +3,8 @@ package ar.edu.unju.fi.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,6 +16,7 @@ import ar.edu.unju.fi.dto.AlumnoDTO;
 import ar.edu.unju.fi.service.IAlumnoService;
 import ar.edu.unju.fi.service.ICarreraService;
 import ar.edu.unju.fi.service.IMateriaService;
+import jakarta.validation.Valid;
 
 @Controller
 @RequestMapping("/alumno")
@@ -49,13 +52,22 @@ public class AlumnoController {
     }
 
     @PostMapping("guardarAlumno")
-    public ModelAndView guardarAlumno(@ModelAttribute("alumno") AlumnoDTO alumnoDTO) {
-        if (alumnoDTO.getLu() != null) {
-            alumnoService.actualizarAlumno(alumnoDTO);
-        } else {
-            alumnoService.agregarUnAlumno(alumnoDTO);
+    public ModelAndView guardarAlumno(@Valid @ModelAttribute("alumno") AlumnoDTO alumnoDTO, BindingResult result) {
+        if(result.hasErrors()){
+        	ModelAndView mv = new ModelAndView("formAlumno");
+            mv.addObject("alumno", alumnoDTO);
+            mv.addObject("isEdit", alumnoDTO.getLu() != null);
+            mv.addObject("listaCarreras", carreraService.getListaCarreras());
+            mv.addObject("listaMaterias", materiaService.getListaMaterias());
+            return mv;
+        }else {
+        	if (alumnoDTO.getLu() != null) {
+                alumnoService.actualizarAlumno(alumnoDTO);
+            } else {
+                alumnoService.agregarUnAlumno(alumnoDTO);
+            }
+            return new ModelAndView("redirect:/alumno/listaAlumnos");
         }
-        return new ModelAndView("redirect:listaAlumnos");
     }
 
     @GetMapping("/modificar/{lu}")
@@ -73,4 +85,6 @@ public class AlumnoController {
         alumnoService.eliminarUnAlumno(lu);
         return new ModelAndView("redirect:/alumno/listaAlumnos");
     }
+    
+    
 }

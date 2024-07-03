@@ -41,7 +41,7 @@
 				<div class="form-floating col-md-3">
 					<select class="form-select" id="docente" data-th-field="*{docente.legajo}">
 								<option value="">Seleccionar docente</option>
-								<option data-th-each="d: ${docentes}" data-th-value="${d.legajo}"  data-th-text="${d.nombre}+' '+${d.apellido}"></option>
+								<option data-th-each="d: ${docentes}" data-th-value="${d.legajo}" data-th-if="${d.legajo != materia.docente.legajo}" data-th-text="${d.nombre}+' '+${d.apellido}"></option>
 								</select>
 					<label for="docente" class="form-label">Docente</label>
 				</div>

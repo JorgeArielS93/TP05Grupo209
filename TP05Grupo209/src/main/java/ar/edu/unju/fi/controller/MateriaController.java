@@ -41,6 +41,7 @@ public class MateriaController {
 	        mv.addObject("isEdit", false);
 	        mv.addObject("docentes", docenteService.getListaDocentes());
 	        mv.addObject("carreras", carreraService.getListaCarreras());
+	        mv.addObject("materias", materiaService.getListaMaterias());
 	        return mv;
 	    }
 

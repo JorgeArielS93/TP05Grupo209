@@ -30,6 +30,7 @@
 							<th scope="col">Fecha Nacimiento</th>
 							<th scope="col">Domicilio</th>
 							<th scope="col">Materias</th>
+							<th scope="col">Carrera</th>
 							<th scope="col" class="text-center">Acciones</th>
 						</tr>
 					</thead>
@@ -48,6 +49,7 @@
                                     <li th:each="materia : ${alumno.materias}" th:text="${materia.nombre}"></li>
                                 </ul>
                             </td>
+                            <td th:text="${alumno.carrera.nombre}"></td>
 							<td class="text-center">
 								<div class="d-flex justify-content-center">
 									<a class="btn btn-warning me-2"

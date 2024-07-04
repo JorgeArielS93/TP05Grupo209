@@ -9,6 +9,8 @@ import ar.edu.unju.fi.model.Alumno;
 import ar.edu.unju.fi.model.Carrera;
 import ar.edu.unju.fi.model.Docente;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,11 +20,19 @@ import lombok.NoArgsConstructor;
 @Component
 public class MateriaDTO {
 	private Long codigo;
-	@NotBlank(message = "Debe ingresar el DNI")
-	@Size(min=6, max=40, message = "El nombre de la carrera debe contener entre 6 y 40 caracteres")
+	@NotBlank(message = "Debe ingresar el nombre de la materia")
+    @Size(min=2,max = 50, message = "El nombre debe contener como mínimo 2 caracteres y como máximo 50 caracteres")
+    @Pattern(regexp= "[a-zA-ZÁÉÍÓÚáéíóúÑñ ]*", message="Debe ingresar únicamente letras y espacios")
 	private String nombre;
+	
+	@NotBlank(message = "Debe ingresar el curso")
+    @Size(min=2,max = 50, message = "El nombre debe contener como mínimo 2 caracteres y como máximo 50 caracteres")
+    @Pattern(regexp= "[a-zA-ZÁÉÍÓÚáéíóúÑñ ]*", message="Debe ingresar únicamente letras y espacios")
 	private String curso;
+	
+	@NotNull(message = "Debe ingresar la cantidad de horas")
 	private int cantidadHoras;
+	 
 	private String modalidad;
 	private boolean estado;
 	@Autowired

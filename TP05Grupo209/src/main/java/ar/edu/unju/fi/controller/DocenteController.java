@@ -88,7 +88,7 @@ public class DocenteController {
         LOGGER.info("CONTROLLER: DocenteController with /borrarDocente/{legajo} get method");
         LOGGER.info("METHOD: deleteDocente() ---- PARAMS: legajo '" + legajo + "'");
         docenteService.eliminarUnDocente(legajo);
-        LOGGER.info("RESULT: Se ah eliminado de forma logica un Docente");
+        LOGGER.info("RESULT: Se ha eliminado de forma logica un Docente");
         LOGGER.info("RESULT: redirige a la página listaDocentes");
         return new ModelAndView("redirect:/docente/listaDocentes");
     }

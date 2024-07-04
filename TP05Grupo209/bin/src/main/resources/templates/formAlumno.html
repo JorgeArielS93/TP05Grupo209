@@ -16,46 +16,55 @@
         <h2 th:text="${isEdit} ? 'Modificar Alumno' : 'Formulario de Alumno'"></h2>
         <form class="row g-3" data-th-action="@{/alumno/guardarAlumno}" data-th-object="${alumno}" method="post">
             <div class="form-floating col-md-3">
-                <input type="number" class="form-control" id="dni" name="dni" data-th-field="*{dni}" placeholder="name@example" required>
+                <input type="number" class="form-control" id="dni" name="dni" data-th-field="*{dni}" placeholder="name@example" th:classappend="${#fields.hasErrors('dni')} ?'is-invalid' : ''">
                 <label for="dni" class="form-label">DNI</label>
+                <p class="form-text text-danger" th:if="${#fields.hasErrors('dni')}" th:errors="*{dni}"></p>
             </div>
             <div class="form-floating col-md-3">
-                <input type="text" class="form-control" id="nombre" name="nombre" data-th-field="*{nombre}" placeholder="name@example" required>
+                <input type="text" class="form-control" id="nombre" name="nombre" data-th-field="*{nombre}" placeholder="name@example" th:classappend="${#fields.hasErrors('nombre')} ?'is-invalid' : ''">
                 <label for="nombre" class="form-label">Nombre</label>
+                <p class="form-text text-danger" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></p>
             </div>
             <div class="form-floating col-md-3">
-                <input type="text" class="form-control" id="apellido" name="apellido" data-th-field="*{apellido}" placeholder="name@example" required>
+                <input type="text" class="form-control" id="apellido" name="apellido" data-th-field="*{apellido}" placeholder="name@example" th:classappend="${#fields.hasErrors('apellido')} ?'is-invalid' : ''">
                 <label for="apellido" class="form-label">Apellido</label>
+                <p class="form-text text-danger" th:if="${#fields.hasErrors('apellido')}" th:errors="*{apellido}"></p>
             </div>
             <div class="form-floating col-md-3">
-                <input type="email" class="form-control" id="email" name="email" data-th-field="*{email}" placeholder="name@example" required>
+                <input type="email" class="form-control" id="email" name="email" data-th-field="*{email}" placeholder="name@example" th:classappend="${#fields.hasErrors('email')} ?'is-invalid' : ''">
                 <label for="email" class="form-label">Email</label>
+                <p class="form-text text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
             </div>
             <div class="form-floating col-md-3">
-                <input type="tel" class="form-control" id="telefono" name="telefono" data-th-field="*{telefono}" placeholder="name@example" required>
+                <input type="tel" class="form-control" id="telefono" name="telefono" data-th-field="*{telefono}" placeholder="name@example" th:classappend="${#fields.hasErrors('telefono')} ?'is-invalid' : ''">
                 <label for="telefono" class="form-label">Teléfono</label>
+                <p class="form-text text-danger" th:if="${#fields.hasErrors('telefono')}" th:errors="*{telefono}"></p>
             </div>
             <div class="form-floating col-md-3">
-                <input type="date" class="form-control" id="fechaNac" name="fechaNac" data-th-field="*{fechaNac}" placeholder="name@example" required>
+                <input type="date" class="form-control" id="fechaNac" name="fechaNac" data-th-field="*{fechaNac}" placeholder="name@example" th:classappend="${#fields.hasErrors('fechaNac')} ?'is-invalid' : ''">
                 <label for="fechaNac" class="form-label">Fecha de Nacimiento</label>
+                <p class="form-text text-danger" th:if="${#fields.hasErrors('fechaNac')}" th:errors="*{fechaNac}"></p>
             </div>
             <div class="form-floating col-md-3">
-                <input type="text" class="form-control" id="domicilio" name="domicilio" data-th-field="*{domicilio}" placeholder="name@example" required>
+                <input type="text" class="form-control" id="domicilio" name="domicilio" data-th-field="*{domicilio}" placeholder="name@example" th:classappend="${#fields.hasErrors('domicilio')} ?'is-invalid' : ''">
                 <label for="domicilio" class="form-label">Domicilio</label>
+                <p class="form-text text-danger" th:if="${#fields.hasErrors('domicilio')}" th:errors="*{domicilio}"></p>
             </div>
+
             <div class="form-floating col-md-3">
                 <select class="form-select" id="carrera" data-th-field="*{carrera.id}" required>
                     <option value="">Seleccionar carrera</option>
-                    <option th:each="carrera : ${listaCarreras}" th:value="${carrera.id}" th:text="${carrera.nombre}"></option>
+                    <option data-th-each="carrera : ${listaCarreras}" data-th-value="${carrera.id}" data-th-text="${carrera.nombre}"></option>
                 </select>
                 <label for="carrera" class="form-label">Carrera</label>
             </div>
-            <div class="form-floating col-md-3">
-                <select class="form-select" id="materias" data-th-field="*{materias}" required multiple aria-label="Materias">
+            <div class="col-md-3">
+                <label for="materias" class="form-label ">Materia</label>
+                <select class="form-select" id="materias" data-th-field="*{materias}" required multiple aria-label="Materias" size="5">
                     <option value="">Seleccionar materia</option>
                     <option data-th-each="materia : ${listaMaterias}" data-th-value="${materia.codigo}" data-th-text="${materia.nombre}"></option>
                 </select>
-                <label for="materias" class="form-label">Materia</label>
+
             </div>
             <div>
                 <input type="hidden" class="form-control form-select-lg mb-3" id="lu" name="lu"data-th-field="*{lu}">
@@ -71,7 +80,6 @@
     </div>
 
     <div class="row"><footer data-th-replace="~{fragments/footer::footer}"></footer></div>
-
 </div>
 <script data-th-src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}"></script>
 </body>

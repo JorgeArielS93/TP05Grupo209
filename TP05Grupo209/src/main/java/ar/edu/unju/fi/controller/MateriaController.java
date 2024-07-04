@@ -67,29 +67,13 @@ public class MateriaController {
 	            return mv;
 	        } else {
 	            if (materiaDTO.getCodigo() != null) {
-	                // Si legajo no es nulo, actualizamos el docente existente
 	                materiaService.actualizarMateria(materiaDTO);
 	            } else {
-	                // Si legajo es nulo, agregamos un nuevo docente
 	                materiaService.agregarUnaMateria(materiaDTO);
 	            }
 	            return new ModelAndView("redirect:/materia/listadoMaterias");
 	        }
 	    }
-
-	/*
-	 * @PostMapping("guardarMateria") public ModelAndView
-	 * guardarMateria(@ModelAttribute("materia") MateriaDTO materiaDTO) {
-	 * 
-	 * docente =
-	 * docenteService.findDocenteByLegajo(materiaDTO.getDocente().getLegajo());
-	 * materiaDTO.setDocente(docente);
-	 * 
-	 * if (materiaDTO.getCodigo() != null) {
-	 * materiaService.actualizarMateria(materiaDTO); } else {
-	 * materiaService.agregarUnaMateria(materiaDTO); } return new
-	 * ModelAndView("redirect:listadoMaterias"); }
-	 */
 
 	@GetMapping("/modificar/{codigo}")
 	public ModelAndView modificarMateria(@PathVariable("codigo") Long codigo) {

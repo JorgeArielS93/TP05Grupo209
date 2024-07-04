@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import ar.edu.unju.fi.dto.AlumnoDTO;
+import ar.edu.unju.fi.dto.CarreraDTO;
 import ar.edu.unju.fi.dto.MateriaDTO;
 import ar.edu.unju.fi.model.Materia;
 import ar.edu.unju.fi.service.IAlumnoService;
@@ -33,6 +34,9 @@ public class AlumnoController {
 
     @Autowired
     private MateriaDTO materiaDTO;
+    
+    @Autowired
+    private CarreraDTO carreraDTO;
     
     @Autowired
     private IAlumnoService alumnoService;
@@ -120,6 +124,34 @@ public class AlumnoController {
         			filtrados.add(a);
         		}
         	}
+        }
+        mv.addObject("alumnos", filtrados);
+        return mv;
+    }
+    
+    @GetMapping("/filtrarPorCarrera")
+    public ModelAndView seleccionarCarrera() {
+        ModelAndView mv = new ModelAndView("formAlumnosPorCarrera");
+        mv.addObject("listaCarreras", carreraService.getListaCarreras());
+        mv.addObject("carrera", carreraDTO);
+        return mv;
+    }
+    
+    @PostMapping("/filtrarPorCarrera")
+    public String redirigirAlumnosPorCarrera(@RequestParam("carreraId") Long carreraId) {
+        return "redirect:/alumno/filtrarPorCarrera/" + carreraId;
+    }
+    
+    @GetMapping("/filtrarPorCarrera/{codigo}")
+    public ModelAndView alumnosPorCarrera(@PathVariable("codigo") Long codigo) {
+        ModelAndView mv = new ModelAndView("listaAlumnosPorCarrera");
+        List<AlumnoDTO> alumnos = alumnoService.getListaAlumnos();
+        List<AlumnoDTO> filtrados = new ArrayList<AlumnoDTO>();
+
+        for (AlumnoDTO a : alumnos) {
+        		if(a.getCarrera().getId().equals(codigo)) {
+        			filtrados.add(a);
+        		}
         }
         mv.addObject("alumnos", filtrados);
         return mv;
